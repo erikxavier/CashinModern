@@ -47,5 +47,10 @@ namespace CashinMUI.View
         {
             
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            tbUser.Focus();
+        }
     }
 }

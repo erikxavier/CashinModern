@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d"
-             DataContext="{Binding Source={StaticResource Locator}, Path=LoginViewModel}">
+             DataContext="{Binding Source={StaticResource Locator}, Path=LoginViewModel}" Loaded="UserControl_Loaded">
     <Grid Style="{StaticResource ContentRoot}">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="CashIn" Style="{StaticResource Heading1}" FontSize="120" HorizontalAlignment="Center" Margin="0 0"/>
@@ -22,7 +22,7 @@
                 </Grid.RowDefinitions>
             <TextBlock Text="Usuário:" Style="{StaticResource Title}" FontSize="30" Margin="0 5" VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="1" Text="Senha:" Style="{StaticResource Title}" FontSize="30" Margin="0 5" VerticalAlignment="Center"/>
-                <TextBox Grid.Column="1" FontSize="30" Text="{Binding Username}" Margin="0 5" VerticalAlignment="Center" GotFocus="TextBox_GotFocus">
+                <TextBox Name="tbUser" Grid.Column="1" FontSize="30" Text="{Binding Username}" Margin="0 5" VerticalAlignment="Center" GotFocus="TextBox_GotFocus">
                     <TextBox.InputBindings>
                         <KeyBinding Command="{Binding LoginCommand}" Key="Return" />
                     </TextBox.InputBindings>

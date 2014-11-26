@@ -5,16 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" Width="1024"
-             DataContext="{Binding Source={StaticResource Locator}, Path=ClienteViewModel}">
+             DataContext="{Binding Source={StaticResource Locator}, Path=ClienteViewModel}" Loaded="UserControl_Loaded">
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <Label Content="Cliente" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0 20"/>
-                    <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20 10">
+                    <Grid IsEnabled="{Binding IsEditing}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20 10">
                         <Grid.ColumnDefinitions >
                             <ColumnDefinition/>
-                            <ColumnDefinition />
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="38*" />
@@ -29,7 +29,7 @@
                             <RowDefinition Height="38*" />
                             <RowDefinition Height="42*" />
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Content="Nome:" VerticalAlignment="Center"  Margin="12 8"/>
+                        <Label FontWeight="Bold" Grid.Row="0" Content="Nome*:" VerticalAlignment="Center"  Margin="12 8"/>
                         <Label Grid.Row="1" Content="E-Mail:" VerticalAlignment="Center" Margin="12 8"/>
                         <Label Grid.Row="2" Content="Documento:" VerticalAlignment="Center"  Margin="12 8"/>
                         <Label Grid.Row="3" Content="Tipo de Doc.:" VerticalAlignment="Center" Margin="12 8" />
@@ -40,30 +40,29 @@
                         <Label Grid.Row="6" Content="CEP:" VerticalAlignment="Center"  Margin="12 8"/>
                         <Label Grid.Row="9" Content="Endereço:" VerticalAlignment="Center"  Margin="12 8"/>
 
-                        <TextBox Text="{Binding Cliente.Nome}" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <TextBox Text="{Binding Cliente.Email}" Grid.Column="1" Grid.Row="1" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <TextBox Text="{Binding Cliente.Documento}" Grid.Column="1" Grid.Row="2" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <ComboBox Grid.Column="1" Grid.Row="3" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <TextBox Text="{Binding Cliente.Telefone}" Grid.Column="1" Grid.Row="4" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <TextBox Text="{Binding Cliente.Estado, Mode=TwoWay}" Grid.Column="1" Grid.Row="7" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <TextBox Text="{Binding Cliente.Cidade, Mode=TwoWay}" Grid.Column="1" Grid.Row="8" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <TextBox Text="{Binding CEP, Mode=TwoWay}" Grid.Column="1" Grid.Row="6" Width="200" VerticalAlignment="Center" Margin="12 8" TextChanged="TextBox_TextChanged"/>
-                        <TextBox Text="{Binding Cliente.Endereco, Mode=TwoWay}" Grid.Column="1" Grid.Row="9" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-
-                        <StackPanel Grid.Row="10" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button  Content="Salvar" Margin="5 8"/>
-                            <Button  Content="Cancelar" Margin="5 8"/>
-                            <Button  Content="Novo" Margin="5 8"/>
-                            <Button  Content="Excluir" Margin="5 8"/>
-                        </StackPanel>
+                        <TextBox TabIndex="0" Text="{Binding Cliente.Nome}" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox Text="{Binding Cliente.Email}" Grid.Column="1" Grid.Row="1" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="1"/>
+                        <TextBox Text="{Binding Cliente.Documento}" Grid.Column="1" Grid.Row="2" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="2"/>
+                        <ComboBox Grid.Column="1" Grid.Row="3" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="3"/>
+                        <TextBox Text="{Binding Cliente.Telefone}" Grid.Column="1" Grid.Row="4" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="4"/>
+                        <TextBox Text="{Binding Cliente.Estado, Mode=TwoWay}" Grid.Column="1" Grid.Row="7" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="6"/>
+                        <TextBox Text="{Binding Cliente.Cidade, Mode=TwoWay}" Grid.Column="1" Grid.Row="8" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="7"/>
+                        <TextBox Text="{Binding CEP, Mode=TwoWay}" Grid.Column="1" Grid.Row="6" Width="200" VerticalAlignment="Center" Margin="12 8" TextChanged="TextBox_TextChanged" TabIndex="5"/>
+                        <TextBox Text="{Binding Cliente.Endereco, Mode=TwoWay}" Grid.Column="1" Grid.Row="9" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="8"/>
                     </Grid>
+                    <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Command="{Binding SalvarCommand}" Content="Salvar" Margin="5 8" TabIndex="9"/>
+                        <Button Command="{Binding CancelarCommand}" Content="Cancelar" Margin="5 8" TabIndex="10"/>
+                        <Button Name="btnNovo" Command="{Binding NovoCommand}" Content="Novo" Margin="5 8" TabIndex="11"/>
+                        <Button  Content="Excluir" Margin="5 8" TabIndex="12"/>
+                    </StackPanel>
                 </StackPanel>
                 <GridSplitter Name="gridSplitter" Width="4" Margin="15 0"/>
                 <StackPanel>
                     <Label Content="Pesquisar Cliente" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0 20"/>
                     <StackPanel Orientation="Horizontal">
                         <Label  Content="pesquisar por:" Margin=" 10 5"/>
-                        <ComboBox VerticalAlignment="Center" Margin="0 0" Width="100">
+                        <ComboBox VerticalAlignment="Center" Margin="0 0" Width="100" TabIndex="13">
                             <ComboBox.Items>
                                 <ComboBoxItem Content="Nome" IsSelected="True"/>
                                 <ComboBoxItem Content="E-Mail"/>
@@ -71,15 +70,15 @@
                                 <ComboBoxItem Content="Cidade"/>
                             </ComboBox.Items>
                         </ComboBox>
-                        <TextBox VerticalAlignment="Center" Margin="10 0" Width="270"/>
+                        <TextBox VerticalAlignment="Center" Margin="10 0" Width="270" TabIndex="14"/>
                     </StackPanel>
                     <Separator Margin="10 10"/>
-                    <DataGrid HorizontalAlignment="Center">
+                    <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Clientes}" HorizontalAlignment="Center">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Nome"/>
-                            <DataGridTextColumn  Header="E-Mail"/>
-                            <DataGridTextColumn Header="Documento"/>
-                            <DataGridTextColumn Header="Cidade"/>
+                            <DataGridTextColumn Header="Nome" Binding="{Binding Nome}"/>
+                            <DataGridTextColumn  Header="E-Mail" Binding="{Binding Email}" />
+                            <DataGridTextColumn Header="Documento" Binding="{Binding Documento}"/>
+                            <DataGridTextColumn Header="Cidade" Binding="{Binding Cidade}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>

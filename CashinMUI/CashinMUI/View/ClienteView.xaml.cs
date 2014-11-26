@@ -31,5 +31,10 @@ namespace CashinMUI.Pages
             var expression = ((TextBox)sender).GetBindingExpression(TextBox.TextProperty);
             if (expression != null) expression.UpdateSource();
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            btnNovo.Focus();
+        }
     }
 }
