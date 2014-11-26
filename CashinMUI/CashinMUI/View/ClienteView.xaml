@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="CashinMUI.Pages.ClienteView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" Width="1024" Loaded="UserControl_Loaded">
+    <Grid Style="{StaticResource ContentRoot}">
+        <ScrollViewer HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <Label Content="Cliente" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0 20"/>                    
+                    <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20 10">
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Nome:" VerticalAlignment="Center"  Margin="12 8"/>
+                        <Label Grid.Row="1" Content="E-Mail:" VerticalAlignment="Center" Margin="12 8"/>
+                        <Label Grid.Row="2" Content="Documento:" VerticalAlignment="Center"  Margin="12 8"/>
+                        <Label Grid.Row="3" Content="Tipo de Doc.:" VerticalAlignment="Center" Margin="12 8" />
+                        <Label Grid.Row="4" Content="Telefone:" VerticalAlignment="Center" Margin="12 8"  />
+                        <Separator Grid.Row="5" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0 5"/>
+                        <Label Grid.Row="6" Content="Estado:" VerticalAlignment="Center" Margin="12 8" />
+                        <Label Grid.Row="7" Content="Cidade:" VerticalAlignment="Center"  Margin="12 8"/>
+                        <Label Grid.Row="8" Content="CEP:" VerticalAlignment="Center"  Margin="12 8"/>
+                        <Label Grid.Row="9" Content="Endereço:" VerticalAlignment="Center"  Margin="12 8"/>
+
+                        <TextBox Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox Grid.Column="1" Grid.Row="1" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox Grid.Column="1" Grid.Row="2" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <ComboBox Grid.Column="1" Grid.Row="3" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox Grid.Column="1" Grid.Row="4" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <ComboBox Grid.Column="1" Grid.Row="6" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox Grid.Column="1" Grid.Row="7" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox Grid.Column="1" Grid.Row="8" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox Grid.Column="1" Grid.Row="9" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+
+                        <StackPanel Grid.Row="10" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button  Content="Salvar" Margin="5 8"/>
+                            <Button  Content="Cancelar" Margin="5 8"/>
+                            <Button  Content="Novo" Margin="5 8"/>
+                            <Button  Content="Excluir" Margin="5 8"/>
+                        </StackPanel>
+                    </Grid>                    
+                </StackPanel>
+                <GridSplitter Name="gridSplitter" Width="4" Margin="15 0"/>
+                <StackPanel>
+                    <Label Content="Pesquisar Cliente" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0 20"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label  Content="pesquisar por:" Margin=" 10 5"/>
+                        <ComboBox VerticalAlignment="Center" Margin="0 0" Width="100">
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="Nome" IsSelected="True"/>
+                                <ComboBoxItem Content="E-Mail"/>
+                                <ComboBoxItem Content="Documento"/>
+                                <ComboBoxItem Content="Cidade"/>
+                            </ComboBox.Items>
+                        </ComboBox>
+                        <TextBox VerticalAlignment="Center" Margin="10 0" Width="270"/>
+                    </StackPanel>
+                    <Separator Margin="10 10"/>
+                    <DataGrid HorizontalAlignment="Center">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nome"/>
+                            <DataGridTextColumn  Header="E-Mail"/>
+                            <DataGridTextColumn Header="Documento"/>
+                            <DataGridTextColumn Header="Cidade"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
