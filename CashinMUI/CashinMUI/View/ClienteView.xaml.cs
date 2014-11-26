@@ -26,9 +26,10 @@ namespace CashinMUI.Pages
             InitializeComponent();
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            var expression = ((TextBox)sender).GetBindingExpression(TextBox.TextProperty);
+            if (expression != null) expression.UpdateSource();
         }
     }
 }

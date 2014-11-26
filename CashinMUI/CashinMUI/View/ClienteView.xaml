@@ -4,29 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-             mc:Ignorable="d" Width="1024" Loaded="UserControl_Loaded">
+             mc:Ignorable="d" Width="1024"
+             DataContext="{Binding Source={StaticResource Locator}, Path=ClienteViewModel}">
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
-                    <Label Content="Cliente" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0 20"/>                    
+                    <Label Content="Cliente" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0 20"/>
                     <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20 10">
                         <Grid.ColumnDefinitions >
                             <ColumnDefinition/>
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
+                            <RowDefinition Height="38*" />
+                            <RowDefinition Height="38*" />
+                            <RowDefinition Height="38*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="38*" />
+                            <RowDefinition Height="11*" />
+                            <RowDefinition Height="38*" />
+                            <RowDefinition Height="38*" />
+                            <RowDefinition Height="38*" />
+                            <RowDefinition Height="38*" />
+                            <RowDefinition Height="42*" />
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Content="Nome:" VerticalAlignment="Center"  Margin="12 8"/>
                         <Label Grid.Row="1" Content="E-Mail:" VerticalAlignment="Center" Margin="12 8"/>
@@ -34,20 +35,20 @@
                         <Label Grid.Row="3" Content="Tipo de Doc.:" VerticalAlignment="Center" Margin="12 8" />
                         <Label Grid.Row="4" Content="Telefone:" VerticalAlignment="Center" Margin="12 8"  />
                         <Separator Grid.Row="5" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0 5"/>
-                        <Label Grid.Row="6" Content="Estado:" VerticalAlignment="Center" Margin="12 8" />
-                        <Label Grid.Row="7" Content="Cidade:" VerticalAlignment="Center"  Margin="12 8"/>
-                        <Label Grid.Row="8" Content="CEP:" VerticalAlignment="Center"  Margin="12 8"/>
+                        <Label Grid.Row="7" Content="Estado:" VerticalAlignment="Center" Margin="12 8" />
+                        <Label Grid.Row="8" Content="Cidade:" VerticalAlignment="Center"  Margin="12 8"/>
+                        <Label Grid.Row="6" Content="CEP:" VerticalAlignment="Center"  Margin="12 8"/>
                         <Label Grid.Row="9" Content="Endereço:" VerticalAlignment="Center"  Margin="12 8"/>
 
-                        <TextBox Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <TextBox Grid.Column="1" Grid.Row="1" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <TextBox Grid.Column="1" Grid.Row="2" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox Text="{Binding Cliente.Nome}" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox Text="{Binding Cliente.Email}" Grid.Column="1" Grid.Row="1" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox Text="{Binding Cliente.Documento}" Grid.Column="1" Grid.Row="2" Width="200" VerticalAlignment="Center" Margin="12 8"/>
                         <ComboBox Grid.Column="1" Grid.Row="3" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <TextBox Grid.Column="1" Grid.Row="4" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <ComboBox Grid.Column="1" Grid.Row="6" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <TextBox Grid.Column="1" Grid.Row="7" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <TextBox Grid.Column="1" Grid.Row="8" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <TextBox Grid.Column="1" Grid.Row="9" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox Text="{Binding Cliente.Telefone}" Grid.Column="1" Grid.Row="4" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox Text="{Binding Cliente.Estado, Mode=TwoWay}" Grid.Column="1" Grid.Row="7" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox Text="{Binding Cliente.Cidade, Mode=TwoWay}" Grid.Column="1" Grid.Row="8" Width="200" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox Text="{Binding CEP, Mode=TwoWay}" Grid.Column="1" Grid.Row="6" Width="200" VerticalAlignment="Center" Margin="12 8" TextChanged="TextBox_TextChanged"/>
+                        <TextBox Text="{Binding Cliente.Endereco, Mode=TwoWay}" Grid.Column="1" Grid.Row="9" Width="200" VerticalAlignment="Center" Margin="12 8"/>
 
                         <StackPanel Grid.Row="10" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button  Content="Salvar" Margin="5 8"/>
@@ -55,7 +56,7 @@
                             <Button  Content="Novo" Margin="5 8"/>
                             <Button  Content="Excluir" Margin="5 8"/>
                         </StackPanel>
-                    </Grid>                    
+                    </Grid>
                 </StackPanel>
                 <GridSplitter Name="gridSplitter" Width="4" Margin="15 0"/>
                 <StackPanel>

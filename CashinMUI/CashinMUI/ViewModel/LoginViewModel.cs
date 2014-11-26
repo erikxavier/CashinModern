@@ -120,17 +120,28 @@ namespace CashinMUI.ViewModel
         }
         public void Login()
         {
-            using (var DB = new CashinDB())
+            try
             {
-                var usuario = DB.Usuario.Where(u => u.Nomeusuario == Username && u.Senha == Senha);
-                if (usuario.Any())
+                using (var DB = new CashinDB())
                 {
-                    Mensagem = "Logado como " + usuario.Single().Nome + "!";
+                    var usuario = DB.Usuario.Where(u => u.Nomeusuario == Username && u.Senha == Senha);
+                    if (usuario.Any())
+                    {
+                        App.Current.Properties["UsuarioLogado"] = usuario.Single();                        
+                        MainViewModel mvm = (MainViewModel)App.Current.MainWindow.DataContext;
+                        mvm.UsuarioLogado = usuario.Single();
+                        mvm.ContentSource = new Uri("/View/Home.xaml", UriKind.Relative);
+                        //((MainWindow)App.Current.MainWindow).ContentSource = new Uri("/View/Home.xaml", UriKind.Relative);
+                    }
+                    else
+                    {
+                        Mensagem = "Usuário e/ou Senha Incorretos";
+                    }
                 }
-                else
-                {
-                    Mensagem = "Usuário e/ou Senha Incorretos";
-                }
+            }
+            catch
+            {
+                Mensagem = "Falha ao conectar no banco de dados!";
             }
         }
 

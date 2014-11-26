@@ -2,41 +2,10 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-        Title="CashIN - Módulo de Gestão de Serviços Autônomos" IsTitleVisible="True"
+        Title="{Binding Titulo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsTitleVisible="True"
         LogoData="F1 M 24.3042,23.9875L 31.2708,30.5582L 43.4624,16.6251L 46.7874,19.5542L 31.6667,38L 20.9792,27.3125L 24.3042,23.9875 Z M 16,17L 40.75,17L 38,20L 19,20L 19,40L 38,40L 38,33L 41,29.25L 41,43L 16,43L 16,17 Z M 51.854,35.8737L 59.7707,43.7903L 40.7708,62.7902L 32.8541,54.8736L 51.854,35.8737 Z M 61.2745,42.2067L 53.4374,34.3696L 56.7962,31.0108C 58.0329,29.7742 60.0379,29.7742 61.2746,31.0108L 64.6333,34.3696C 65.87,35.6062 65.87,37.6113 64.6333,38.8479L 61.2745,42.2067 Z M 30.875,65.5609L 30.0833,64.7693L 32.1614,58.1391L 37.5052,63.4829L 30.875,65.5609 Z "
-        ContentSource="/View/Login.xaml" Width="1024" MaxWidth="1024" WindowStartupLocation="CenterScreen">
-
-    <mui:ModernWindow.MenuLinkGroups>
-        <mui:LinkGroup DisplayName="Início">
-            <mui:LinkGroup.Links>
-                <mui:Link DisplayName="home" Source="/View/Home.xaml" />
-            </mui:LinkGroup.Links>
-        </mui:LinkGroup>
-        <mui:LinkGroup DisplayName="Entidades">
-            <mui:LinkGroup.Links>
-                <mui:Link DisplayName="Cliente" Source="/View/ClienteView.xaml" />
-                <mui:Link DisplayName="Usuário" Source="/View/ClienteView.xaml" />
-            </mui:LinkGroup.Links>
-        </mui:LinkGroup>
-        <mui:LinkGroup DisplayName="Orçamentos">
-            <mui:LinkGroup.Links>
-                <mui:Link DisplayName="Consultar" Source="/View/ClienteView.xaml" />
-                <mui:Link DisplayName="Cadastrar" Source="/View/ClienteView.xaml" />
-            </mui:LinkGroup.Links>
-        </mui:LinkGroup>
-        <mui:LinkGroup DisplayName="Projetos">
-            <mui:LinkGroup.Links>
-                <mui:Link DisplayName="Consultar" Source="/View/ClienteView.xaml" />
-                <mui:Link DisplayName="Execução" Source="/View/ClienteView.xaml" />
-            </mui:LinkGroup.Links>
-        </mui:LinkGroup>
-
-        <mui:LinkGroup DisplayName="configurações" GroupKey="settings">
-            <mui:LinkGroup.Links>
-                <mui:Link DisplayName="software" Source="/View/SettingsPage.xaml" />
-            </mui:LinkGroup.Links>
-        </mui:LinkGroup>
-    </mui:ModernWindow.MenuLinkGroups>
+        ContentSource="{Binding ContentSource, Mode=TwoWay}" Width="1024" MaxWidth="1024" WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}" MenuLinkGroups="{Binding MenuLinkGroups, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
     
     <mui:ModernWindow.TitleLinks>
         <mui:Link DisplayName="configurações" Source="/View/SettingsPage.xaml" />

@@ -1,34 +1,168 @@
+using CashinMUI.Model;
+using FirstFloor.ModernUI.Presentation;
+using FirstFloor.ModernUI.Windows.Controls;
 using GalaSoft.MvvmLight;
+using System;
+using System.Windows.Forms;
 
 namespace CashinMUI.ViewModel
 {
-    /// <summary>
-    /// This class contains properties that the main View can data bind to.
-    /// <para>
-    /// Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
-    /// </para>
-    /// <para>
-    /// You can also use Blend to data bind with the tool's support.
-    /// </para>
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
-    /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
+
         public MainViewModel()
         {
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
+            ContentSource = new Uri("/View/Login.xaml", UriKind.Relative);
+            MenuLinkGroups = new LinkGroupCollection();
+            MontaLinksDeslogado();
         }
+
+        #region Variáveis
+
+        private Uri _contentSource;
+        public Uri ContentSource
+        {
+            get { return _contentSource; }
+            set
+            {
+                if (_contentSource != value)
+                {
+                    _contentSource = value;
+                    RaisePropertyChanged("ContentSource");
+                }
+            }
+        }
+
+        private string _titulo = "CashIN - Módulo de Gestão de Serviços Autônomos";
+        public string Titulo
+        {
+            get { return _titulo; }
+
+            set
+            {
+                if (value != _titulo)
+                {
+                    _titulo = "CashIN Autônomo - Logado como: "+value;
+                    RaisePropertyChanged("Titulo");
+                }
+            }
+        }
+
+        private Usuario _usuarioLogado;
+        public Usuario UsuarioLogado
+        {
+            get { return _usuarioLogado; }
+            set
+            {
+                if (_usuarioLogado != value)
+                {
+                    if (value != null)
+                    {
+                        Titulo = ((Usuario)value).Nome;
+                        MontaLinksLogado();
+                    }
+                    else
+                    {
+                        MontaLinksDeslogado();
+                    }
+                    _usuarioLogado = value;                    
+                    RaisePropertyChanged("UsuarioLogado");
+                }
+            }
+        }
+
+        private LinkGroupCollection _menuLinkGroups;
+        public LinkGroupCollection MenuLinkGroups
+        {
+            get
+            {
+                return _menuLinkGroups;
+            }
+            private set
+            {
+                if (value != null)
+                {                    
+                    _menuLinkGroups = value;
+                    RaisePropertyChanged("MenuLinkGroups");
+                }
+            }
+        }
+
+        #endregion
+
+        #region Commands
+
+        #endregion
+
+
+        #region Lógicas de negócio
+
+        public void MontaLinksLogado()
+        {            
+            LinkGroup entidades = new LinkGroup();
+            entidades.DisplayName = "Entidades";
+            entidades.Links.Add(new Link()
+            {
+                DisplayName = "Clientes",
+                Source = new System.Uri("/View/ClienteView.xaml", UriKind.Relative)
+            });
+            entidades.Links.Add(new Link()
+            {
+                DisplayName = "Usuarios",
+                Source = new System.Uri("/View/UsuarioView.xaml", UriKind.Relative)
+            });
+            LinkGroup orcamentos = new LinkGroup();
+            orcamentos.DisplayName = "Orçamentos";
+            orcamentos.Links.Add(new Link()
+            {
+                DisplayName = "Consultar",
+                Source = new System.Uri("/View/Home.xaml", UriKind.Relative)
+            });
+            orcamentos.Links.Add(new Link()
+            {
+                DisplayName = "Cadastrar",
+                Source = new System.Uri("/View/Home.xaml", UriKind.Relative)
+            });
+            LinkGroup projetos = new LinkGroup();
+            projetos.DisplayName = "projetos";
+            projetos.Links.Add(new Link()
+            {
+                DisplayName = "Cadastrar",
+                Source = new System.Uri("/View/Home.xaml", UriKind.Relative)
+            });
+            projetos.Links.Add(new Link()
+            {
+                DisplayName = "Acompanhamento",
+                Source = new System.Uri("/View/Home.xaml", UriKind.Relative)
+            });
+            MenuLinkGroups.Clear();
+            MenuLinkGroups.Add(entidades);
+            MenuLinkGroups.Add(orcamentos);
+            MenuLinkGroups.Add(projetos);
+            RaisePropertyChanged("MenuLinkGroups");
+
+        }
+
+        private void MontaLinksDeslogado()
+        {            
+            LinkGroup entidades = new LinkGroup();
+            entidades.DisplayName = "iniciar";
+            entidades.Links.Add(new Link()
+            {
+                DisplayName = "Login",
+                Source = new System.Uri("/View/Login.xaml", UriKind.Relative)
+            });
+            entidades.Links.Add(new Link()
+            {
+                DisplayName = "Cadastre-se",
+                Source = new System.Uri("/View/UsuarioView.xaml", UriKind.Relative)
+            });
+            MenuLinkGroups.Clear();
+            MenuLinkGroups.Add(entidades);
+            RaisePropertyChanged("MenuLinkGroups");
+        }
+
+        #endregion
+
     }
 }

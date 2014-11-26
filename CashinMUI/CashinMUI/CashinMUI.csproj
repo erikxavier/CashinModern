@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Correios.Net">
+      <HintPath>Resources\Correios.Net.dll</HintPath>
+    </Reference>
     <Reference Include="DbLinq">
       <HintPath>Resources\DbLinq.dll</HintPath>
     </Reference>
@@ -87,6 +90,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\CashinDB.cs" />
+    <Compile Include="ViewModel\ClienteViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelFactory.cs" />
