@@ -21,12 +21,46 @@ namespace CashinMUI.ViewModel
             DB = new CashinDB();
             DB.Log = Console.Out;
             AtualizaClientes();
+
+            //inicia  ItensBusca
+
+            
             //NovoCliente();
         }
 
         #region Variáveis
 
         private CashinDB DB;
+
+        private string _criterio;
+        public string Criterio
+        {
+            get { return _criterio; }
+            set
+            {
+                if (_criterio != value)
+                {
+                    _criterio = value;
+                    RaisePropertyChanged("Criterio");
+                    Busca = string.Empty;                    
+                }
+            }
+        }
+
+        private string _busca;
+        public string Busca
+        {
+            get { return _busca;  }
+            set
+            {
+                if (_busca != value)
+                {
+                    _busca = value;
+                    RaisePropertyChanged("Busca");
+                    AtualizaClientes();
+                }
+            }
+        }
 
         private ObservableCollection<Cliente> _clientes;
         public ObservableCollection<Cliente> Clientes
@@ -185,10 +219,31 @@ namespace CashinMUI.ViewModel
 
         private void AtualizaClientes()
         {
-            //Clientes = new ObservableCollection<Cliente>(from c in DB.Cliente
-            //                                                 where c.Usuario == Usuario
-            //                                                 select c
-            //                                            );
+            //var busca = new ObservableCollection<Cliente>(DB.Cliente.Where(c => c.Idusuario == Usuario.ID));
+            var clientes = from c in DB.Cliente where c.Idusuario == Usuario.ID select c;
+            if (!string.IsNullOrEmpty(Busca))
+            {
+                switch (Criterio)
+                {
+                    case "nome":
+                        //busca = new ObservableCollection<Model.Cliente>(busca.Where(c => c.Nome.ToLower().Contains(Busca.ToLower())));
+                        clientes = from c in clientes where  c.Nome.ToLower().Contains(Busca) select c;
+                        break;
+                    case "email":
+                        clientes = from c in clientes where c.Email.ToLower().Contains(Busca) select c;
+                        break;
+                    case "documento":
+                        clientes = from c in clientes where c.Documento.ToLower().Contains(Busca) select c;
+                        break;
+                    case "cidade":
+                        clientes = from c in clientes where c.Cidade.ToLower().Contains(Busca) select c;
+                        break;
+                    default:                        
+                        break;
+                }
+            }
+            Clientes = new ObservableCollection<Cliente>(clientes);
+            
 
         }
 

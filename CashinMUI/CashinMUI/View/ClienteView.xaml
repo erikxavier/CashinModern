@@ -62,18 +62,18 @@
                     <Label Content="Pesquisar Cliente" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0 20"/>
                     <StackPanel Orientation="Horizontal">
                         <Label  Content="pesquisar por:" Margin=" 10 5"/>
-                        <ComboBox VerticalAlignment="Center" Margin="0 0" Width="100" TabIndex="13">
+                        <ComboBox SelectedValuePath="Tag" SelectedValue="{Binding Criterio}" VerticalAlignment="Center" Margin="0 0" Width="100" TabIndex="13">
                             <ComboBox.Items>
-                                <ComboBoxItem Content="Nome" IsSelected="True"/>
-                                <ComboBoxItem Content="E-Mail"/>
-                                <ComboBoxItem Content="Documento"/>
-                                <ComboBoxItem Content="Cidade"/>
+                                <ComboBoxItem Tag="nome" Content="Nome" IsSelected="True"/>
+                                <ComboBoxItem Tag="email"  Content="E-Mail"/>
+                                <ComboBoxItem Tag="documento" Content="Documento"/>
+                                <ComboBoxItem Tag="cidade" Content="Cidade"/>
                             </ComboBox.Items>
                         </ComboBox>
-                        <TextBox VerticalAlignment="Center" Margin="10 0" Width="270" TabIndex="14"/>
+                        <TextBox Text="{Binding Busca, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10 0" Width="270" TabIndex="14"/>
                     </StackPanel>
                     <Separator Margin="10 10"/>
-                    <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Clientes}" HorizontalAlignment="Center">
+                    <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Clientes}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Nome" Binding="{Binding Nome}"/>
                             <DataGridTextColumn  Header="E-Mail" Binding="{Binding Email}" />
