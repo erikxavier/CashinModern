@@ -47,14 +47,13 @@
                         <TextBox Text="{Binding Cliente.Telefone}" Grid.Column="1" Grid.Row="4" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="4"/>
                         <TextBox Text="{Binding Cliente.Estado, Mode=TwoWay}" Grid.Column="1" Grid.Row="7" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="6"/>
                         <TextBox Text="{Binding Cliente.Cidade, Mode=TwoWay}" Grid.Column="1" Grid.Row="8" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="7"/>
-                        <TextBox Text="{Binding CEP, Mode=TwoWay}" Grid.Column="1" Grid.Row="6" Width="200" VerticalAlignment="Center" Margin="12 8" TextChanged="TextBox_TextChanged" TabIndex="5"/>
+                        <TextBox Text="{Binding CEP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="6" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="5"/>
                         <TextBox Text="{Binding Cliente.Endereco, Mode=TwoWay}" Grid.Column="1" Grid.Row="9" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="8"/>
                     </Grid>
                     <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Command="{Binding SalvarCommand}" Content="Salvar" Margin="5 8" TabIndex="9"/>
-                        <Button Command="{Binding CancelarCommand}" Content="Cancelar" Margin="5 8" TabIndex="10"/>
                         <Button Name="btnNovo" Command="{Binding NovoCommand}" Content="Novo" Margin="5 8" TabIndex="11"/>
-                        <Button  Content="Excluir" Margin="5 8" TabIndex="12"/>
+                        <Button Command="{Binding SalvarCommand}" Content="Salvar" Margin="5 8" TabIndex="9"/>
+                        <Button Command="{Binding CancelarCommand}" Content="Cancelar" Margin="5 8" TabIndex="10"/>                        
                     </StackPanel>
                 </StackPanel>
                 <GridSplitter Name="gridSplitter" Width="4" Margin="15 0"/>
@@ -73,7 +72,16 @@
                         <TextBox Text="{Binding Busca, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10 0" Width="270" TabIndex="14"/>
                     </StackPanel>
                     <Separator Margin="10 10"/>
-                    <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Clientes}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid ToolTip="Clique com o botão direito do mouse para obter mais opções." SelectedItem="{Binding ClienteSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Clientes}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Criar Orçamento"/>
+                                <Separator/>
+                                <MenuItem Command="{Binding NovoCommand}" Header="Novo Cliente"/>
+                                <MenuItem Command="{Binding AlterarCommand}" Header="Alterar"/>
+                                <MenuItem Command="{Binding ExcluirCommand}" Header="Excluir"/>                                
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Nome" Binding="{Binding Nome}"/>
                             <DataGridTextColumn  Header="E-Mail" Binding="{Binding Email}" />

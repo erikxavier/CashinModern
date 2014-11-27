@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
+using FirstFloor.ModernUI.Windows.Controls;
+using System.Windows;
 
 namespace CashinMUI.ViewModel
 {
@@ -115,6 +117,20 @@ namespace CashinMUI.ViewModel
                 }
             }
         }
+
+        private Cliente _clienteSelecionado;
+        public Cliente ClienteSelecionado
+        {
+            get { return _clienteSelecionado; }
+            set
+            {
+                if (_clienteSelecionado != value)
+                {
+                    _clienteSelecionado = value;
+                    RaisePropertyChanged("ClienteSelecionado");
+                }
+            }
+        }
         
         public string CEP
         {
@@ -169,9 +185,71 @@ namespace CashinMUI.ViewModel
             }
         }
 
+        private ICommand _excluirCommand;
+        public ICommand ExcluirCommand
+        {
+            get
+            {
+                return _excluirCommand ?? (_excluirCommand = new RelayCommand(Excluir, CanExcluir));
+            }
+        }
+
+        private ICommand _alterarCommand;
+        public ICommand AlterarCommand
+        {
+            get
+            {
+                return _alterarCommand ?? (_alterarCommand = new RelayCommand(Alterar, CanAlterar));
+            }
+        }
+
         #endregion
 
         #region Lógicas de Negócio
+
+        private bool CanAlterar()
+        {
+            return (ClienteSelecionado != null && !IsEditing);
+        }
+
+        private void Alterar()
+        {
+            Cliente = ClienteSelecionado;
+        }
+
+        private bool CanExcluir()
+        {
+            return ClienteSelecionado != null;
+        }
+
+        private void Excluir()
+        {
+            if (ModernDialog.ShowMessage(
+                "Deseja realmente remover o Cliente selecionado ?", 
+                "Aviso!", 
+                MessageBoxButton.YesNo)
+            == MessageBoxResult.Yes)
+            {
+                if (ClienteSelecionado.Orcamento.Any())
+                {
+                    ModernDialog.ShowMessage("Não foi possível remover o Cliente selecionado, pois ele \npossui Orçamentos vinculados.\nExclua os orçamentos deste cliente e tente novamente.", "Erro", MessageBoxButton.OK);
+                    return;
+                }
+                else
+                {
+                    try
+                    {
+                        DB.Cliente.DeleteOnSubmit(ClienteSelecionado);
+                        DB.SubmitChanges();
+                        AtualizaClientes();
+                    }
+                    catch (Exception)
+                    {
+                        ModernDialog.ShowMessage("Algum erro ocorreu ao tentar excluir o Cliente", "Erro", MessageBoxButton.OK);
+                    }
+                }
+            }
+        }
 
         private bool CanSalvar()
         {

@@ -25,8 +25,7 @@ namespace CashinMUI
     {
         public MainWindow()
         {
-            InitializeComponent();
-            
+            InitializeComponent();                        
         }
 
 

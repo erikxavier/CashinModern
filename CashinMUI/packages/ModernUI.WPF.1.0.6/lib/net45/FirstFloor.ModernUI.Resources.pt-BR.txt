@@ -1,0 +1,14 @@
+NavigationFailedFrameNotFound=Não foi possível navegar para {0}, não foi encontrado o destino '{1}'
+Cancel=cancelar
+Close=fechar
+Maximize=maximizar
+Minimize=minimizar
+NavigationFailed=Navegação falhou
+NavigationFailedSourceNotSpecified=Não foi possível navegar para {0}, origem não especificada
+No=não
+Ok=ok
+Restore=repor
+UIThreadRequired=Operação requer thread da UI
+UnexpectedToken=Unexpected token
+UnknownTokenType=Unknown token type
+Yes=sim
