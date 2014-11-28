@@ -36,7 +36,7 @@ namespace CashinMUI.Pages
 
         private void NovoOrcamento(object sender, RoutedEventArgs e)
         {
-                        
+            ((MainWindow)App.Current.MainWindow).ContentSource = new Uri("/View/OrcamentoView.xaml", UriKind.Relative);
         }
     }
 }

@@ -207,7 +207,7 @@ namespace CashinMUI.ViewModel
         {
             get
             {
-                return _novoOrcamento ?? (_novoOrcamento = new RelayCommand(Alterar, CanAlterar));
+                return _novoOrcamento ?? (_novoOrcamento = new RelayCommand(NovoOrcamento, CanNovoOrcamento));
             }
         }
 
@@ -222,7 +222,7 @@ namespace CashinMUI.ViewModel
 
         private void NovoOrcamento()
         {
-            
+            ((MainWindow)App.Current.MainWindow).ContentSource = new Uri("/View/OrcamentoView.xaml", UriKind.Relative);
         }
 
         private bool CanAlterar()

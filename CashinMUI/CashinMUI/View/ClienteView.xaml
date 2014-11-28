@@ -6,11 +6,11 @@
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" Width="1024"
              DataContext="{Binding Source={StaticResource Locator}, Path=ClienteViewModel}" Loaded="UserControl_Loaded">
-    <Grid Style="{StaticResource ContentRoot}">
+    <Grid Style="{StaticResource ContentRoot}">        
         <ScrollViewer HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
-                    <Label Content="Cliente" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0 20"/>
+                    <TextBlock Style="{StaticResource Title}" Text="Cliente" FontSize="30" HorizontalAlignment="Center" Margin="0 10"/>
                     <Grid IsEnabled="{Binding IsEditing}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20 10">
                         <Grid.ColumnDefinitions >
                             <ColumnDefinition/>
@@ -58,8 +58,8 @@
                 </StackPanel>
                 <GridSplitter Name="gridSplitter" Width="4" Margin="15 0"/>
                 <StackPanel>
-                    <Label Content="Pesquisar Cliente" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0 20"/>
-                    <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource Title}" Text="Pesquisar Cliente" FontSize="30" HorizontalAlignment="Center" Margin="0 10"/>
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                         <Label  Content="pesquisar por:" Margin=" 10 5"/>
                         <ComboBox SelectedValuePath="Tag" SelectedValue="{Binding Criterio}" VerticalAlignment="Center" Margin="0 0" Width="100" TabIndex="13">
                             <ComboBox.Items>
@@ -75,7 +75,7 @@
                     <DataGrid ToolTip="Clique com o botão direito do mouse para obter mais opções." SelectedItem="{Binding ClienteSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Clientes}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Criar Orçamento" Click="NovoOrcamento"/>
+                                <MenuItem Command="{Binding NovoOrcamentoCommand}" Header="Criar Orçamento"/>
                                 <Separator/>
                                 <MenuItem Command="{Binding NovoCommand}" Header="Novo Cliente"/>
                                 <MenuItem Command="{Binding AlterarCommand}" Header="Alterar"/>

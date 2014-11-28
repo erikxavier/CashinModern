@@ -48,5 +48,15 @@ namespace CashinMUI.ViewModel
                 return _usuarioViewModel;
             }
         }
+
+        private static OrcamentoViewModel _orcamentoViewModel;
+        public OrcamentoViewModel OrcamentoViewModel
+        {
+            get
+            {
+                _orcamentoViewModel = new OrcamentoViewModel();
+                return _orcamentoViewModel;
+            }
+        }
     }
 }
