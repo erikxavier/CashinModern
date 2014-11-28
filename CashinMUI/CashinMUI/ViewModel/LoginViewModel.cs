@@ -1,4 +1,5 @@
 ﻿using CashinMUI.Model;
+using CashinMUI.Util;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -59,12 +60,9 @@ namespace CashinMUI.ViewModel
             private get { return _senha; }
             set
             {
-                string senha;
-                if (string.IsNullOrEmpty(value)) senha = "";
-                else senha = GerarHashMd5(value);
-                if (senha != _senha)
+                if (value != _senha)
                 {
-                    _senha = senha;
+                    _senha = value;
                     RaisePropertyChanged("Senha");
                 }
 
@@ -92,24 +90,6 @@ namespace CashinMUI.ViewModel
 
         #region Lógica de negócios
 
-        public static string GerarHashMd5(string input)
-        {
-            MD5 md5Hash = MD5.Create();
-            // Converter a String para array de bytes, que é como a biblioteca trabalha.
-            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-
-            // Cria-se um StringBuilder para recompôr a string.
-            StringBuilder sBuilder = new StringBuilder();
-
-            // Loop para formatar cada byte como uma String em hexadecimal
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-
-            return sBuilder.ToString();
-        }
-
         public bool CanLogin()
         {
             if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Senha))
@@ -127,7 +107,7 @@ namespace CashinMUI.ViewModel
                     var usuario = DB.Usuario.Where(u => u.Nomeusuario == Username && u.Senha == Senha);
                     if (usuario.Any())
                     {
-                        App.Current.Properties["UsuarioLogado"] = usuario.Single();                        
+                        App.Current.Properties["UsuarioLogado"] = usuario.Single();
                         MainViewModel mvm = (MainViewModel)App.Current.MainWindow.DataContext;
                         mvm.UsuarioLogado = usuario.Single();
                         mvm.ContentSource = new Uri("/View/Home.xaml", UriKind.Relative);

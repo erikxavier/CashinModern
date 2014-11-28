@@ -90,13 +90,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\CashinDB.cs" />
+    <Compile Include="Util\Utilitarios.cs" />
     <Compile Include="ViewModel\ClienteViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\UsuarioViewModel.cs" />
     <Compile Include="ViewModel\ViewModelFactory.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OrcamentoView.xaml.cs">
+      <DependentUpon>OrcamentoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UsuarioView.xaml.cs">
       <DependentUpon>UsuarioView.xaml</DependentUpon>
@@ -121,6 +126,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OrcamentoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -43,7 +43,7 @@
                         <TextBox TabIndex="0" Text="{Binding Cliente.Nome}" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="12 8"/>
                         <TextBox Text="{Binding Cliente.Email}" Grid.Column="1" Grid.Row="1" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="1"/>
                         <TextBox Text="{Binding Cliente.Documento}" Grid.Column="1" Grid.Row="2" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="2"/>
-                        <ComboBox Grid.Column="1" Grid.Row="3" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="3"/>
+                        <ComboBox Text="{Binding Cliente.Tipodocumento}" Name="cbTipoDoc" Grid.Column="1" Grid.Row="3" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="3"/>
                         <TextBox Text="{Binding Cliente.Telefone}" Grid.Column="1" Grid.Row="4" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="4"/>
                         <TextBox Text="{Binding Cliente.Estado, Mode=TwoWay}" Grid.Column="1" Grid.Row="7" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="6"/>
                         <TextBox Text="{Binding Cliente.Cidade, Mode=TwoWay}" Grid.Column="1" Grid.Row="8" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="7"/>
@@ -75,7 +75,7 @@
                     <DataGrid ToolTip="Clique com o botão direito do mouse para obter mais opções." SelectedItem="{Binding ClienteSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Clientes}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Criar Orçamento"/>
+                                <MenuItem Header="Criar Orçamento" Click="NovoOrcamento"/>
                                 <Separator/>
                                 <MenuItem Command="{Binding NovoCommand}" Header="Novo Cliente"/>
                                 <MenuItem Command="{Binding AlterarCommand}" Header="Alterar"/>

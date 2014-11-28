@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CashinMUI.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,43 @@ namespace CashinMUI.View
         public UsuarioView()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+       
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext != null)
+            {
+                string senha;
+                if (!string.IsNullOrEmpty(((PasswordBox)sender).Password))
+                    senha = Utilitarios.GerarHashMD5(((PasswordBox)sender).Password);
+                else
+                    senha = string.Empty;
+                ((dynamic)this.DataContext).Usuario.Senha = senha;
+            }
+        }
+
+        private void PasswordBox_PasswordChanged_1(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext != null)
+            {
+                string senha;
+                if (!string.IsNullOrEmpty(((PasswordBox)sender).Password))
+                    senha = Utilitarios.GerarHashMD5(((PasswordBox)sender).Password);
+                else
+                    senha = string.Empty;
+                ((dynamic)this.DataContext).ConfirmaSenha = senha;
+            }
+        }
+
+        private void UserControl_Initialized(object sender, EventArgs e)
+        {
+            cbTipoDeDocumento.Items.Add(TipoDeDocumento.CPF);
+            cbTipoDeDocumento.Items.Add(TipoDeDocumento.CNPJ);     
         }
     }
 }

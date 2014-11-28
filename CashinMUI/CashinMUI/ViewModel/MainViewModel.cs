@@ -4,6 +4,7 @@ using FirstFloor.ModernUI.Windows.Controls;
 using GalaSoft.MvvmLight;
 using System;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace CashinMUI.ViewModel
 {
@@ -92,10 +93,29 @@ namespace CashinMUI.ViewModel
 
         #region Commands
 
+        private ICommand _logOut;
+        public ICommand LogOutCommand
+        {
+            get
+            {
+                return _logOut ?? (_logOut = new GalaSoft.MvvmLight.Command.RelayCommand(LogOut, CanLogOut));
+            }
+        }
+
         #endregion
 
 
         #region Lógicas de negócio
+
+        public bool CanLogOut()
+        {
+            return true;
+        }
+
+        public void LogOut()
+        {
+            MessageBox.Show("Saiu!");
+        }
 
         public void MontaLinksLogado()
         {            

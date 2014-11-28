@@ -12,13 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CashinMUI.Util;
+using FirstFloor.ModernUI.Windows;
 
 namespace CashinMUI.View
 {
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class Login : UserControl
+    public partial class Login : UserControl, IContent
     {
         public Login()
         {
@@ -29,7 +31,12 @@ namespace CashinMUI.View
         {
             if (this.DataContext != null)
             {
-                ((dynamic)this.DataContext).Senha = ((PasswordBox)sender).Password;
+                string senha;
+                if (!string.IsNullOrEmpty(((PasswordBox)sender).Password))
+                    senha = Utilitarios.GerarHashMD5(((PasswordBox)sender).Password);
+                else
+                    senha = string.Empty;
+                ((dynamic)this.DataContext).Senha = senha;
             }
         }
 
@@ -51,6 +58,29 @@ namespace CashinMUI.View
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             tbUser.Focus();
+        }
+
+        public void OnFragmentNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)
+        {
+            
+        }
+
+        public void OnNavigatedFrom(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
+        {
+            
+        }
+
+        public void OnNavigatedTo(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
+        {
+            if (Application.Current.Properties["UsuarioLogado"] == null)
+            {
+                
+            }
+        }
+
+        public void OnNavigatingFrom(FirstFloor.ModernUI.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
+            
         }
     }
 }

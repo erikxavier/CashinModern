@@ -12,6 +12,8 @@ using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
 using FirstFloor.ModernUI.Windows.Controls;
 using System.Windows;
+using CashinMUI.Util;
+using System.Windows.Navigation;
 
 namespace CashinMUI.ViewModel
 {
@@ -19,7 +21,7 @@ namespace CashinMUI.ViewModel
     {
         public ClienteViewModel()
         {
-            Usuario = (Usuario)App.Current.Properties["UsuarioLogado"];
+            Usuario = (Usuario)App.Current.Properties["UsuarioLogado"];            
             DB = new CashinDB();
             DB.Log = Console.Out;
             AtualizaClientes();
@@ -145,10 +147,7 @@ namespace CashinMUI.ViewModel
                     {
                         Cliente.Cep = value;
                         RaisePropertyChanged("CEP");
-                        if (Cliente != null)
-                        {
-                            ProcuraCep();
-                        }
+                        ProcuraCep();
                     }
                 }
             }
@@ -203,9 +202,28 @@ namespace CashinMUI.ViewModel
             }
         }
 
+        private ICommand _novoOrcamento;
+        public ICommand NovoOrcamentoCommand
+        {
+            get
+            {
+                return _novoOrcamento ?? (_novoOrcamento = new RelayCommand(Alterar, CanAlterar));
+            }
+        }
+
         #endregion
 
         #region Lógicas de Negócio
+
+        private bool CanNovoOrcamento()
+        {
+            return (ClienteSelecionado != null && !IsEditing);
+        }
+
+        private void NovoOrcamento()
+        {
+            
+        }
 
         private bool CanAlterar()
         {
@@ -292,7 +310,8 @@ namespace CashinMUI.ViewModel
         private void Novo()
         {
             Cliente = new Cliente();
-            Cliente.Usuario = Usuario;            
+            Cliente.Usuario = Usuario;
+            Cliente.Tipodocumento = TipoDeDocumento.CPF.ToString();
         }
 
         private void AtualizaClientes()
@@ -332,7 +351,7 @@ namespace CashinMUI.ViewModel
                 Address adr = BuscaCep.GetAddress(CEP);                
                 Cliente.Cidade = adr.City;
                 Cliente.Endereco = adr.Street;
-                Cliente.Estado = adr.State;
+                Cliente.Estado = adr.State;                
                 
             }
             catch (Exception ex)

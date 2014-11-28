@@ -38,5 +38,15 @@ namespace CashinMUI.ViewModel
                 return _clienteViewModel;
             }
         }
+
+        private static UsuarioViewModel _usuarioViewModel;
+        public UsuarioViewModel UsuarioViewModel
+        {
+            get
+            {
+                _usuarioViewModel = new UsuarioViewModel();
+                return _usuarioViewModel;
+            }
+        }
     }
 }

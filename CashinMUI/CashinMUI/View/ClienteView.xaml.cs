@@ -1,4 +1,5 @@
-﻿using FirstFloor.ModernUI.Presentation;
+﻿using CashinMUI.Util;
+using FirstFloor.ModernUI.Presentation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,14 @@ namespace CashinMUI.Pages
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            btnNovo.Focus();
+            btnNovo.Focus();            
+            cbTipoDoc.Items.Add(TipoDeDocumento.CPF);
+            cbTipoDoc.Items.Add(TipoDeDocumento.CNPJ);
+        }
+
+        private void NovoOrcamento(object sender, RoutedEventArgs e)
+        {
+                        
         }
     }
 }
