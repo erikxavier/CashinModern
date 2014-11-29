@@ -17,7 +17,7 @@ namespace CashinMUI.ViewModel
     {
         public OrcamentoViewModel()
         {
-
+            DB = new CashinDB();
         }
 
         #region Variáveis
@@ -42,27 +42,14 @@ namespace CashinMUI.ViewModel
 
         #region Commands
 
-        private RelayCommand<NavigationEventArgs> _getClienteCommand;
-        public RelayCommand<NavigationEventArgs> GetClienteCommand
-        {
-            get
-            {
-                return _getClienteCommand ?? (_getClienteCommand = new RelayCommand<NavigationEventArgs>(GetCliente, CanGetCliente));
-            }
-        }
-
         #endregion
 
         #region Lógicas de Negócio
 
-        private bool CanGetCliente(NavigationEventArgs e)
-        {
-            return true;
-        }
 
-        private void GetCliente(NavigationEventArgs e)
+        public void GetCliente(FragmentNavigationEventArgs e)
         {
-            ModernDialog.ShowMessage("Funcionou!", "Mensagem", MessageBoxButton.OK);
+            Cliente = DB.Cliente.Where(c => c.ID == int.Parse(e.Fragment)).Single();
         }
 
         #endregion

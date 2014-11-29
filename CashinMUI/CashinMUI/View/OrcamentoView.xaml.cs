@@ -1,4 +1,6 @@
-﻿using FirstFloor.ModernUI.Windows;
+﻿using CashinMUI.ViewModel;
+using FirstFloor.ModernUI.Windows;
+using FirstFloor.ModernUI.Windows.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CashinMUI.View
@@ -28,6 +29,12 @@ namespace CashinMUI.View
 
         public void OnFragmentNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)
         {
+
+            var viewModel = DataContext as OrcamentoViewModel;
+            if (viewModel != null)
+            {
+                viewModel.GetCliente(e);
+            }
             
         }
 

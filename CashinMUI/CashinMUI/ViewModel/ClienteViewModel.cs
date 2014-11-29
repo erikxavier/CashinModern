@@ -222,7 +222,7 @@ namespace CashinMUI.ViewModel
 
         private void NovoOrcamento()
         {
-            ((MainWindow)App.Current.MainWindow).ContentSource = new Uri("/View/OrcamentoView.xaml", UriKind.Relative);
+            ((MainWindow)App.Current.MainWindow).ContentSource = new Uri("/View/OrcamentoView.xaml#"+ClienteSelecionado.ID, UriKind.Relative);
         }
 
         private bool CanAlterar()
