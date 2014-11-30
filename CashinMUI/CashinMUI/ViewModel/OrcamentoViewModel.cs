@@ -21,13 +21,78 @@ namespace CashinMUI.ViewModel
         public OrcamentoViewModel()
         {
             Usuario = (Usuario)App.Current.Properties["UsuarioLogado"];  
-            DB = new CashinDB();            
-
+            DB = new CashinDB();
+            Criterio = "Cliente";
+            AtualizaOrcamentos();
         }
 
         #region Variáveis
 
         private CashinDB DB;
+
+        private Orcamento _orcamentoSelecionado;
+        public Orcamento OrcamentoSelecionado
+        {
+            get { return _orcamentoSelecionado; }
+            set
+            {
+                if (_orcamentoSelecionado != value)
+                {
+                    _orcamentoSelecionado = value;
+                    RaisePropertyChanged("OrcamentoSelecionado");
+                    if (_orcamentoSelecionado != null && !IsEditing)
+                        SelecionaOrcamento();
+                }
+            }
+        }
+
+        private string _criterio;
+        public string Criterio
+        {
+            get { return _criterio; }
+            set
+            {
+                if (_criterio != value)
+                {
+                    _criterio = value;
+                    RaisePropertyChanged("Criterio");
+                    Busca = string.Empty;
+                }
+            }
+        }
+
+        private string _busca;
+        public string Busca
+        {
+            get { return _busca; }
+            set
+            {
+                if (_busca != value)
+                {
+                    _busca = value;
+                    RaisePropertyChanged("Busca");
+                    AtualizaOrcamentos();
+                }
+            }
+        }
+
+        private ObservableCollection<Orcamento> _orcamentos;
+        public ObservableCollection<Orcamento> Orcamentos
+        {
+            get
+            {
+                return _orcamentos;
+
+            }
+            set
+            {
+                if (_orcamentos != value)
+                {
+                    _orcamentos = value;
+                    RaisePropertyChanged("Orcamentos");
+                }
+            }
+        }
 
         private Usuario Usuario;
 
@@ -63,6 +128,7 @@ namespace CashinMUI.ViewModel
                 if (_itensOrcamento != null)
                 {
                     _itensOrcamento.CollectionChanged += _itensOrcamento_CollectionChanged;
+                    SomaTotal();
                 }
 
                 // Notify that the 'Answers' property has changed:
@@ -124,9 +190,9 @@ namespace CashinMUI.ViewModel
                     _cliente = value;
                     RaisePropertyChanged("Cliente");
                     if (_cliente != null)
-                        ClienteString =  Cliente.Nome + " | " + Cliente.Email;
+                        ClienteString =  Cliente.Nome;
                     else
-                        ClienteString = "[url=/View/ClienteView.xaml]Clique aqui para selecionar um cliente.[/url]";
+                        ClienteString = "Nenhum Cliente selecionado.";
                 }
             }
         }
@@ -145,7 +211,7 @@ namespace CashinMUI.ViewModel
             }
         }
 
-        private string _clienteString = "[url=/View/ClienteView.xaml]Clique aqui para selecionar um cliente.[/url]";
+        private string _clienteString = "Nenhum Cliente selecionado.";
         public string ClienteString
         {
             get
@@ -295,6 +361,35 @@ namespace CashinMUI.ViewModel
         private void SomaTotal()
         {            
             Total = ItensOrcamento.Sum(i => i.Valor.GetValueOrDefault());
+        }
+
+        private void AtualizaOrcamentos()
+        {            
+            var orcamentos = from o in DB.Orcamento where o.Idusuario == Usuario.ID select o;
+            if (!string.IsNullOrEmpty(Busca))
+            {
+                switch (Criterio)
+                {
+                    case "cliente":                        
+                        orcamentos = from c in orcamentos where c.Cliente.Nome.ToLower().Contains(Busca.ToLower()) select c;                        
+                        break;
+                    case "descricao":
+                        orcamentos = from c in orcamentos where c.Descricao.ToLower().Contains(Busca.ToLower()) select c;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            Orcamentos = new ObservableCollection<Orcamento>(orcamentos);
+
+
+        }
+
+        private void SelecionaOrcamento()
+        {
+            Orcamento = OrcamentoSelecionado;
+            Cliente = OrcamentoSelecionado.Cliente;
+            ItensOrcamento = new ItemObservableCollection<Itemorcamento>(OrcamentoSelecionado.Itemorcamento);
         }
 
         private void _itensOrcamento_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

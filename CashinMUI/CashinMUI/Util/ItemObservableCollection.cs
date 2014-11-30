@@ -18,6 +18,18 @@ namespace CashinMUI.Util
             CollectionChanged += new NotifyCollectionChangedEventHandler(TrulyObservableCollection_CollectionChanged);
         }
 
+        public ItemObservableCollection(IEnumerable<T> collection)
+            : base(collection)
+        {
+            CollectionChanged += new NotifyCollectionChangedEventHandler(TrulyObservableCollection_CollectionChanged);
+        }
+
+        public ItemObservableCollection(List<T> list)
+            : base(list)
+        {
+            CollectionChanged += new NotifyCollectionChangedEventHandler(TrulyObservableCollection_CollectionChanged);
+        } 
+
         void TrulyObservableCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)

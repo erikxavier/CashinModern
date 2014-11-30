@@ -324,16 +324,16 @@ namespace CashinMUI.ViewModel
                 {
                     case "nome":
                         //busca = new ObservableCollection<Model.Cliente>(busca.Where(c => c.Nome.ToLower().Contains(Busca.ToLower())));
-                        clientes = from c in clientes where  c.Nome.ToLower().Contains(Busca) select c;
+                        clientes = from c in clientes where c.Nome.ToLower().Contains(Busca.ToLower()) select c;
                         break;
                     case "email":
-                        clientes = from c in clientes where c.Email.ToLower().Contains(Busca) select c;
+                        clientes = from c in clientes where c.Email.ToLower().Contains(Busca.ToLower()) select c;
                         break;
                     case "documento":
-                        clientes = from c in clientes where c.Documento.ToLower().Contains(Busca) select c;
+                        clientes = from c in clientes where c.Documento.ToLower().Contains(Busca.ToLower()) select c;
                         break;
                     case "cidade":
-                        clientes = from c in clientes where c.Cidade.ToLower().Contains(Busca) select c;
+                        clientes = from c in clientes where c.Cidade.ToLower().Contains(Busca.ToLower()) select c;
                         break;
                     default:                        
                         break;

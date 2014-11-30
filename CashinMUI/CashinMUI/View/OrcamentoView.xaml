@@ -16,13 +16,11 @@
                     <Label  Content="pesquisar por:" Margin=" 10 5"/>
                     <ComboBox SelectedValuePath="Tag" SelectedValue="{Binding Criterio}" VerticalAlignment="Center" Margin="0 0" Width="100" TabIndex="13">
                         <ComboBox.Items>
-                            <ComboBoxItem Tag="nome" Content="Nome" IsSelected="True"/>
-                            <ComboBoxItem Tag="email"  Content="E-Mail"/>
-                            <ComboBoxItem Tag="documento" Content="Documento"/>
-                            <ComboBoxItem Tag="cidade" Content="Cidade"/>
+                            <ComboBoxItem Selector.IsSelected="True" Tag="cliente" Content="Cliente"/>
+                            <ComboBoxItem Tag="descricao"  Content="Descrição"/>                                                       
                         </ComboBox.Items>
                     </ComboBox>
-                    <TextBox Text="{Binding Busca, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10 0" Width="240" TabIndex="14"/>
+                    <TextBox Text="{Binding Busca, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10 0" Width="230" TabIndex="14"/>
                 </StackPanel>
                 <Separator Margin="10 10"/>
                 <DataGrid ToolTip="Clique com o botão direito do mouse para obter mais opções." SelectedItem="{Binding OrcamentoSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Orcamentos}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
@@ -45,11 +43,14 @@
             <GridSplitter Name="gridSplitter" Width="4" Margin="15 0"/>
             <StackPanel Width="400">
                 <TextBlock HorizontalAlignment="Center" FontSize="30" Text="Novo Orçamento" Style="{StaticResource Title}" />
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 10">
                     <TextBlock Style="{StaticResource Heading2}" Text="Cliente:"/>
-                    <mui:BBCodeBlock Style="{StaticResource Heading2}" BBCode="{Binding ClienteString, Mode=OneWay}" Margin="10 0 0 0"/>
+                    <StackPanel>
+                        <mui:BBCodeBlock Style="{StaticResource Heading2}" BBCode="{Binding ClienteString, Mode=OneWay}" Margin="10 0 0 0"/>
+                        <mui:BBCodeBlock HorizontalAlignment="Center" BBCode="[url=/View/ClienteView.xaml]Clique aqui para selecionar um cliente.[/url]" Margin="10 0 0 0"/>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel HorizontalAlignment="Center">
+                <StackPanel HorizontalAlignment="Center" IsEnabled="{Binding IsEditing}">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                         <TextBlock Width="80" VerticalAlignment="Center" Text="Descrição:"/>
                         <TextBox Width="320" Text="{Binding Orcamento.Descricao}" UseLayoutRounding="False"/>
@@ -92,11 +93,11 @@
                         <TextBlock Text="Total:"/>
                         <TextBlock Text="{Binding Total, StringFormat={}{0:C}, Mode=TwoWay}"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0 10" HorizontalAlignment="Center">                        
-                        <Button Command="{Binding NovoOrcamentoCommand}" Content="Novo Orçamento"/>
-                        <Button Command="{Binding CancelarCommand}" Content="Cancelar" Margin="10 0"/>
-                        <Button Command="{Binding SalvarCommand}" Content="Salvar"/>
-                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 10" HorizontalAlignment="Center">
+                    <Button Command="{Binding NovoOrcamentoCommand}" Content="Novo Orçamento"/>
+                    <Button Command="{Binding CancelarCommand}" Content="Cancelar" Margin="10 0"/>
+                    <Button Command="{Binding SalvarCommand}" Content="Salvar"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
