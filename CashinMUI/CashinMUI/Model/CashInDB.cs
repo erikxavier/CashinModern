@@ -167,6 +167,8 @@ public partial class Cashindb
 
         private string _email;
 
+        private string _contato;
+
         private string _endereco;
 
         private string _estado;
@@ -195,6 +197,10 @@ public partial class Cashindb
         partial void OnCidadeChanged();
 
         partial void OnCidadeChanging(string value);
+
+        partial void OnContatoChanged();
+
+        partial void OnContatoChanging(string value);
 
         partial void OnDocumentoChanged();
 
@@ -324,6 +330,28 @@ public partial class Cashindb
                     this._email = value;
                     this.SendPropertyChanged("Email");
                     this.OnEmailChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_contato", Name = "CONTATO", DbType = "varchar(100)", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public string Contato
+        {
+            get
+            {
+                return this._contato;
+            }
+            set
+            {
+                if (((_contato == value)
+                            == false))
+                {
+                    this.OnContatoChanging(value);
+                    this.SendPropertyChanging();
+                    this._contato = value;
+                    this.SendPropertyChanged("Contato");
+                    this.OnContatoChanged();
                 }
             }
         }
@@ -953,6 +981,8 @@ public partial class Cashindb
 
         private bool _aprovado;
 
+        private string _titulo;
+
         private string _descricao;
 
         private System.DateTime _validade;
@@ -997,6 +1027,10 @@ public partial class Cashindb
         partial void OnDescricaoChanged();
 
         partial void OnDescricaoChanging(string value);
+
+        partial void OnTituloChanged();
+
+        partial void OnTituloChanging(string value);
         #endregion
 
 
@@ -1113,7 +1147,7 @@ public partial class Cashindb
             }
         }
 
-        [Column(Storage = "_descricao", Name = "DESCRICAO", DbType = "varchar(200)", AutoSync = AutoSync.Never, CanBeNull = true)]
+        [Column(Storage = "_descricao", Name = "DESCRICAO", DbType = "varchar(400)", AutoSync = AutoSync.Never, CanBeNull = true)]
         [DebuggerNonUserCode()]
         public string Descricao
         {
@@ -1130,6 +1164,27 @@ public partial class Cashindb
                     this._descricao = value;
                     this.SendPropertyChanged("Descricao");
                     this.OnDescricaoChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_titulo", Name = "TITULO", DbType = "varchar(100)", AutoSync = AutoSync.Never, CanBeNull = true)]
+        [DebuggerNonUserCode()]
+        public string Titulo
+        {
+            get
+            {
+                return this._titulo;
+            }
+            set
+            {
+                if ((_titulo != value))
+                {
+                    this.OnTituloChanging(value);
+                    this.SendPropertyChanging();
+                    this._titulo = value;
+                    this.SendPropertyChanged("Titulo");
+                    this.OnTituloChanged();
                 }
             }
         }
@@ -1340,6 +1395,8 @@ public partial class Cashindb
 
         private System.Nullable<int> _idorcamento;
 
+        private string _titulo;
+
         private string _descricao;
 
         private System.Nullable<System.DateTime> _inicio;
@@ -1376,6 +1433,10 @@ public partial class Cashindb
         partial void OnDescricaoChanged();
 
         partial void OnDescricaoChanging(string value);
+
+        partial void OnTituloChanged();
+
+        partial void OnTituloChanging(string value);
 
         #endregion
 
@@ -1428,8 +1489,28 @@ public partial class Cashindb
             }
         }
 
+        [Column(Storage = "_titulo", Name = "TITULO", DbType = "varchar(100)", AutoSync = AutoSync.Never, CanBeNull = true)]
+        [DebuggerNonUserCode()]
+        public string Titulo
+        {
+            get
+            {
+                return this._titulo;
+            }
+            set
+            {
+                if ((_titulo != value))
+                {
+                    this.OnTituloChanging(value);
+                    this.SendPropertyChanging();
+                    this._titulo = value;
+                    this.SendPropertyChanged("Titulo");
+                    this.OnTituloChanged();
+                }
+            }
+        }
 
-        [Column(Storage = "_descricao", Name = "DESCRICAO", DbType = "varchar(200)", AutoSync = AutoSync.Never, CanBeNull = true)]
+        [Column(Storage = "_descricao", Name = "DESCRICAO", DbType = "varchar(400)", AutoSync = AutoSync.Never, CanBeNull = true)]
         [DebuggerNonUserCode()]
         public string Descricao
         {
