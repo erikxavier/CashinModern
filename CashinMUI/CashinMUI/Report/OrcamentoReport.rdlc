@@ -120,7 +120,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=FormatCurrency(Fields!Valor.Value)</Value>
+                              <Value>=Fields!Valor.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -172,6 +172,36 @@
           </Border>
         </Style>
       </Tablix>
+      <Textbox Name="Textbox12">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=FormatCurrency(Sum(Fields!Valor.Value, "ItemDS"))</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox12</rd:DefaultName>
+        <Top>7.0612cm</Top>
+        <Left>6.05578cm</Left>
+        <Height>0.6cm</Height>
+        <Width>3.01625cm</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
       <Textbox Name="Cliente">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -187,11 +217,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Cliente</rd:DefaultName>
-        <Top>1.74307cm</Top>
-        <Left>3.22474cm</Left>
+        <Top>1.55787cm</Top>
+        <Left>3.64808cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
-        <ZIndex>1</ZIndex>
+        <ZIndex>2</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -202,26 +232,26 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="Documento">
+      <Textbox Name="Data">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!Documento.Value, "OrcamentoDS")</Value>
+                <Value>=First(Fields!Data.Value, "OrcamentoDS")</Value>
                 <Style />
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
-        <rd:DefaultName>Documento</rd:DefaultName>
-        <Top>1.79599cm</Top>
-        <Left>6.82308cm</Left>
+        <rd:DefaultName>Data</rd:DefaultName>
+        <Top>1.63724cm</Top>
+        <Left>7.00828cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
-        <ZIndex>2</ZIndex>
+        <ZIndex>3</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -247,11 +277,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Titulo</rd:DefaultName>
-        <Top>2.9337cm</Top>
-        <Left>3.22474cm</Left>
+        <Top>2.53683cm</Top>
+        <Left>3.99203cm</Left>
         <Height>0.6cm</Height>
-        <Width>12.76583cm</Width>
-        <ZIndex>3</ZIndex>
+        <Width>2.5cm</Width>
+        <ZIndex>4</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -262,26 +292,26 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="Textbox12">
+      <Textbox Name="EmailUsuario">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=FormatCurrency(Sum(Fields!Valor.Value, "ItemDS"))</Value>
+                <Value>=First(Fields!EmailUsuario.Value, "OrcamentoDS")</Value>
                 <Style />
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
-        <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>7.0612cm</Top>
-        <Left>6.05578cm</Left>
+        <rd:DefaultName>EmailUsuario</rd:DefaultName>
+        <Top>2.43099cm</Top>
+        <Left>7.72266cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.01625cm</Width>
-        <ZIndex>4</ZIndex>
+        <Width>2.5cm</Width>
+        <ZIndex>5</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -314,14 +344,14 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>0307ff1d-dc24-4f4d-9a70-e6ec46087306</rd:DataSourceID>
+      <rd:DataSourceID>0995e50a-ebac-44b4-b22a-36f0f12f8b23</rd:DataSourceID>
     </DataSource>
     <DataSource Name="CashinMUIModel1">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>abeb2bbd-734e-466b-a577-db0705aed3be</rd:DataSourceID>
+      <rd:DataSourceID>3f68c222-235b-44bb-acbb-b22fe95be732</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -363,6 +393,10 @@
         <Field Name="Data">
           <DataField>Data</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Descricao">
+          <DataField>Descricao</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Documento">
           <DataField>Documento</DataField>

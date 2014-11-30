@@ -30,7 +30,8 @@ namespace CashinMUI.Report
             orc.EndUsuario = o.Usuario.Endereco + ", " + o.Usuario.Cidade + " - " + o.Usuario.Estado + " - CEP " + o.Usuario.Cep;
             orc.FoneUsuario = o.Usuario.Telefone;
             orc.NomeFantasia = o.Usuario.Nomefantasia;
-            orc.Titulo = o.Descricao;
+            orc.Titulo = o.Titulo;
+            orc.Descricao = o.Descricao;
             orc.Usuario = o.Usuario.Nome;
             orc.Validade = o.Validade;
 
