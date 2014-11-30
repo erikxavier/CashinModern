@@ -10,19 +10,26 @@
              DataContext="{Binding Source={StaticResource Locator}, Path=OrcamentoViewModel}">
     <Grid Style="{StaticResource ContentRoot}">
         <StackPanel Orientation="Horizontal">
-            <StackPanel Width="450">
+            
+            <StackPanel Width="400">
                 <TextBlock Style="{StaticResource Title}" Text="Pesquisar Orçamento" FontSize="30" HorizontalAlignment="Center" Margin="0 10"/>
+                
                 <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
-                    <Label  Content="pesquisar por:" Margin=" 10 5"/>
-                    <ComboBox SelectedValuePath="Tag" SelectedValue="{Binding Criterio}" VerticalAlignment="Center" Margin="0 0" Width="100" TabIndex="13">
+                    <Label Content="Pesquisar por:" FontSize="15" Margin="10 5" Width="110"/>
+                    <ComboBox SelectedValuePath="Tag" SelectedValue="{Binding Criterio}" VerticalAlignment="Center" Margin="0 0" Width="250" Padding="8" TabIndex="13">
                         <ComboBox.Items>
                             <ComboBoxItem Selector.IsSelected="True" Tag="cliente" Content="Cliente"/>
                             <ComboBoxItem Tag="descricao"  Content="Descrição"/>                                                       
                         </ComboBox.Items>
                     </ComboBox>
-                    <TextBox Text="{Binding Busca, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10 0" Width="230" TabIndex="14"/>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                    <Label Content="Palavra chave:" FontSize="15" Margin="10 5" Width="100"/>
+                    <TextBox Text="{Binding Busca, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10 0" Width="250" Padding="3" TabIndex="14" IsEnabled="{Binding CriterioExiste}"/>
+                </StackPanel>
+
                 <Separator Margin="10 10"/>
+                
                 <DataGrid ToolTip="Clique com o botão direito do mouse para obter mais opções." SelectedItem="{Binding OrcamentoSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Orcamentos}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                     <DataGrid.ContextMenu>
                         <ContextMenu>
@@ -39,31 +46,34 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
-            <GridSplitter Name="gridSplitter" Width="4" Margin="15 0"/>
-            <StackPanel Width="400">
-                <TextBlock HorizontalAlignment="Center" FontSize="30" Text="Novo Orçamento" Style="{StaticResource Title}" />
+            
+            <GridSplitter Name="gridSplitter" Width="2" Margin="15 0"/>
+            
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Center" FontSize="30" Text="{Binding ActionString}" Style="{StaticResource Title}" />
+                
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 10">
                     <TextBlock Style="{StaticResource Heading2}" Text="Cliente:"/>
-                    <StackPanel>
-                        <ComboBox ItemsSource="{Binding Clientes}" SelectedItem="{Binding Cliente}" DisplayMemberPath="Nome" Margin="20 0 0 0" Width="320"/>
+                    <StackPanel IsEnabled="{Binding IsEditing}">
+                        <ComboBox ItemsSource="{Binding Clientes}" SelectedItem="{Binding Cliente}" DisplayMemberPath="Nome" Margin="20 0 0 0" Width="350" Padding="8"/>
                         <mui:BBCodeBlock HorizontalAlignment="Center" BBCode="[url=/View/ClienteView.xaml]Clique aqui para cadastrar ou pesquisar um cliente[/url]" Margin="10 0 0 0"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Center" IsEnabled="{Binding IsEditing}">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0 5">
-                        <TextBlock Width="80" VerticalAlignment="Center" Text="Título:"/>
-                        <TextBox Width="320" Text="{Binding Orcamento.Titulo}" UseLayoutRounding="False"/>
+                        <TextBlock Width="80" VerticalAlignment="Center" Text="Título:" FontSize="15"/>
+                        <TextBox Width="350" Text="{Binding Orcamento.Titulo}" UseLayoutRounding="False" Padding="3" MaxLength="100"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0 5">
-                        <TextBlock Width="80" VerticalAlignment="Top" Text="Descrição:"/>
-                        <TextBox Width="320" Text="{Binding Orcamento.Descricao}" UseLayoutRounding="False" Height="60"/>
+                        <TextBlock Width="80" VerticalAlignment="Top" Text="Descrição:" FontSize="15"/>
+                        <TextBox Width="350" Text="{Binding Orcamento.Descricao}" UseLayoutRounding="False" Height="60" Padding="3" TextWrapping="Wrap" MaxLength="400"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0 5">                        
-                        <TextBlock Width="80" VerticalAlignment="Center" Text="Validade:" Margin="0 0 0 0"/>
-                        <DatePicker Width="320" SelectedDate="{Binding Orcamento.Validade, Mode=TwoWay}"/>
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Width="80" VerticalAlignment="Center" Text="Validade:" Margin="0 0 0 0" FontSize="15"/>
+                        <DatePicker Width="350" SelectedDate="{Binding Orcamento.Validade, Mode=TwoWay}" Padding="3"/>
                     </StackPanel>
-                    <TextBlock Text="Descrição dos itens" HorizontalAlignment="Center" Style="{StaticResource Title}" Margin="0 10"/>
-                    <DataGrid SelectedIndex="{Binding IndexSelecionado}" SelectedItem="{Binding ItemSelecionado}" MaxHeight="250" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding ItensOrcamento, Mode=TwoWay}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False">
+                    <TextBlock Text="Descrição dos itens" HorizontalAlignment="Center" Style="{StaticResource Title}" Margin="0 10" />
+                    <DataGrid SelectedIndex="{Binding IndexSelecionado}" SelectedItem="{Binding ItemSelecionado}" MaxHeight="350" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding ItensOrcamento, Mode=TwoWay}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False">
                         <DataGrid.ContextMenu>
                             <ContextMenu>                                
                                 <MenuItem Command="{Binding AdicionaItemCommand}" Header="Adicionar Item"/>
@@ -98,7 +108,7 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 10" HorizontalAlignment="Center">
-                    <Button Command="{Binding NovoOrcamentoCommand}" Content="Novo Orçamento"/>
+                    <Button Command="{Binding NovoOrcamentoCommand}" Content="Novo" Padding="10,8,10,8"/>
                     <Button Command="{Binding CancelarCommand}" Content="Cancelar" Margin="10 0"/>
                     <Button Command="{Binding SalvarCommand}" Content="Salvar"/>
                 </StackPanel>

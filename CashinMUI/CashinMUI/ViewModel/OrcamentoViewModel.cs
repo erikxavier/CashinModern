@@ -61,6 +61,34 @@ namespace CashinMUI.ViewModel
             }
         }
 
+        private string _actionString = "Orçamento";
+        public string ActionString
+        {
+            get { return _actionString; }
+            set
+            {
+                if (_actionString != value)
+                {
+                    _actionString = value;
+                    RaisePropertyChanged("ActionString");
+                }
+            }
+        }
+
+        private bool _criterioExiste = false;
+        public bool CriterioExiste
+        {
+            get { return _criterioExiste; }
+            set
+            {
+                if (_criterioExiste != value)
+                {
+                    _criterioExiste = value;
+                    RaisePropertyChanged("CriterioExiste");
+                }
+            }
+        }
+
         private string _criterio;
         public string Criterio
         {
@@ -72,6 +100,10 @@ namespace CashinMUI.ViewModel
                     _criterio = value;
                     RaisePropertyChanged("Criterio");
                     Busca = string.Empty;
+                    if (!string.IsNullOrEmpty(_criterio))
+                        CriterioExiste = true;
+                    else
+                        CriterioExiste = false;
                 }
             }
         }
@@ -97,7 +129,6 @@ namespace CashinMUI.ViewModel
             get
             {
                 return _orcamentos;
-
             }
             set
             {
@@ -331,11 +362,12 @@ namespace CashinMUI.ViewModel
             Orcamento = null;
             ItensOrcamento = null;
             IsEditing = false;
+            Cliente = null;
         }
 
         private bool CanSalvar()
         {
-            return IsEditing;
+            return (IsEditing && Cliente != null);
         }
 
         private void Salvar()
@@ -350,10 +382,11 @@ namespace CashinMUI.ViewModel
                 IsEditing = false;
                 Orcamento = null;
                 ItensOrcamento = null;
+                ActionString = "Orçamento";
             }
             catch (Exception)
             {
-                                
+                                    
             }
         }
 
@@ -369,7 +402,7 @@ namespace CashinMUI.ViewModel
         }
 
         private bool CanNovoOrcamento() {
-            return (Cliente != null && !IsEditing);
+            return (!IsEditing);
         }
 
         private void NovoOrcamento()
@@ -381,6 +414,7 @@ namespace CashinMUI.ViewModel
             Orcamento.Validade = DateTime.Now.AddMonths(1);
             ItensOrcamento = new ItemObservableCollection<Itemorcamento>();
             IsEditing = true;
+            ActionString = "Novo Orçamento";
         }
 
         private bool CanAdicionaItem()
@@ -421,8 +455,6 @@ namespace CashinMUI.ViewModel
                 }
             }
             Orcamentos = new ObservableCollection<Orcamento>(orcamentos);
-
-
         }
 
         private void SelecionaOrcamento()

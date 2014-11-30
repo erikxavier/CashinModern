@@ -36,6 +36,34 @@ namespace CashinMUI.ViewModel
 
         private CashinDB DB;
 
+        private string _actionString = "Cliente";
+        public string ActionString
+        {
+            get { return _actionString; }
+            set
+            {
+                if (_actionString != value)
+                {
+                    _actionString = value;
+                    RaisePropertyChanged("ActionString");
+                }
+            }
+        }
+
+        private bool _criterioExiste = false;
+        public bool CriterioExiste
+        {
+            get { return _criterioExiste; }
+            set
+            {
+                if (_criterioExiste != value)
+                {
+                    _criterioExiste = value;
+                    RaisePropertyChanged("CriterioExiste");
+                }
+            }
+        }
+
         private string _criterio;
         public string Criterio
         {
@@ -46,7 +74,11 @@ namespace CashinMUI.ViewModel
                 {
                     _criterio = value;
                     RaisePropertyChanged("Criterio");
-                    Busca = string.Empty;                    
+                    Busca = string.Empty;
+                    if (!string.IsNullOrEmpty(_criterio))
+                        CriterioExiste = true;
+                    else
+                        CriterioExiste = false;
                 }
             }
         }
@@ -233,6 +265,7 @@ namespace CashinMUI.ViewModel
         private void Alterar()
         {
             Cliente = ClienteSelecionado;
+            ActionString = "Alterar Cliente";
         }
 
         private bool CanExcluir()
@@ -284,7 +317,7 @@ namespace CashinMUI.ViewModel
             {                
                 DB.SubmitChanges();
                 AtualizaClientes();
-                Cliente = null;
+                Cancelar();
             }
             catch (Exception)
             {                    
@@ -300,6 +333,7 @@ namespace CashinMUI.ViewModel
         private void Cancelar()
         {
             Cliente = null;
+            ActionString = "Cliente";
         }
 
         private bool CanNovo()
@@ -312,6 +346,7 @@ namespace CashinMUI.ViewModel
             Cliente = new Cliente();
             Cliente.Usuario = Usuario;
             Cliente.Tipodocumento = TipoDeDocumento.CPF.ToString();
+            ActionString = "Novo Cliente";
         }
 
         private void AtualizaClientes()
