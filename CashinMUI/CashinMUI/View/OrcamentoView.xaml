@@ -29,7 +29,7 @@
                             <MenuItem Command="{Binding AprovarOrcamentoCommand}" Header="Aprovar Orçamento"/>
                             <Separator/>
                             <MenuItem Command="{Binding NovoCommand}" Header="Novo Cliente"/>
-                            <MenuItem Command="{Binding AlterarCommand}" Header="Alterar"/>
+                            <MenuItem Command="{Binding ExibirRelatorioCommand}" Header="Exibir Relatório"/>
                             <MenuItem Command="{Binding ExcluirCommand}" Header="Excluir"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>

@@ -1,4 +1,5 @@
 ﻿using CashinMUI.Model;
+using CashinMUI.Report;
 using CashinMUI.Util;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
@@ -233,6 +234,15 @@ namespace CashinMUI.ViewModel
 
         #region Commands
 
+        private ICommand _exibirRelatorioCommand;
+        public ICommand ExibirRelatorioCommand
+        {
+            get
+            {
+                return _exibirRelatorioCommand ?? (_exibirRelatorioCommand = new RelayCommand(ExibirRelatorio, CanExibirRelatorio));
+            }
+        }
+
         private ICommand _adicionaItemCommand;
         public ICommand AdicionaItemCommand
         {
@@ -281,6 +291,17 @@ namespace CashinMUI.ViewModel
         #endregion
 
         #region Lógicas de Negócio
+
+        private bool CanExibirRelatorio()
+        {
+            return OrcamentoSelecionado != null;
+        }
+
+        private void ExibirRelatorio()
+        {
+            OrcamentoReportView report = new OrcamentoReportView(OrcamentoSelecionado);
+            report.Show();
+        }
 
         private bool CanCancelar()
         {
