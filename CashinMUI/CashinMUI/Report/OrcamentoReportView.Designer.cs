@@ -32,17 +32,19 @@
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource2 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.OrcamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.OrcamentoBindingSource)).BeginInit();
+            this.ItemOrcamentoReportModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.OrcamentoReportModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.ItemOrcamentoReportModelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OrcamentoReportModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // reportViewer1
             // 
             this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            reportDataSource1.Name = "Orcamento";
-            reportDataSource1.Value = this.OrcamentoBindingSource;
-            reportDataSource2.Name = "ItensOrcamento";
-            reportDataSource2.Value = this.OrcamentoBindingSource;
+            reportDataSource1.Name = "ItemDS";
+            reportDataSource1.Value = this.ItemOrcamentoReportModelBindingSource;
+            reportDataSource2.Name = "OrcamentoDS";
+            reportDataSource2.Value = this.OrcamentoReportModelBindingSource;
             this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
             this.reportViewer1.LocalReport.DataSources.Add(reportDataSource2);
             this.reportViewer1.LocalReport.ReportEmbeddedResource = "CashinMUI.Report.OrcamentoReport.rdlc";
@@ -51,10 +53,13 @@
             this.reportViewer1.Size = new System.Drawing.Size(1016, 474);
             this.reportViewer1.TabIndex = 0;
             // 
-            // OrcamentoBindingSource
+            // ItemOrcamentoReportModelBindingSource
             // 
-            this.OrcamentoBindingSource.DataSource = typeof(CashinMUI.Model.Orcamento);
-            this.OrcamentoBindingSource.CurrentChanged += new System.EventHandler(this.OrcamentoBindingSource_CurrentChanged);
+            this.ItemOrcamentoReportModelBindingSource.DataSource = typeof(CashinMUI.Model.ItemOrcamentoReportModel);
+            // 
+            // OrcamentoReportModelBindingSource
+            // 
+            this.OrcamentoReportModelBindingSource.DataSource = typeof(CashinMUI.Model.OrcamentoReportModel);
             // 
             // OrcamentoReportView
             // 
@@ -65,7 +70,8 @@
             this.Name = "OrcamentoReportView";
             this.Text = "Imprimir Orçamento";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.OrcamentoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemOrcamentoReportModelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OrcamentoReportModelBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -73,6 +79,9 @@
         #endregion
 
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
-        private System.Windows.Forms.BindingSource OrcamentoBindingSource;
+        private System.Windows.Forms.BindingSource ItemOrcamentoReportModelBindingSource;
+        private System.Windows.Forms.BindingSource OrcamentoReportModelBindingSource;
+
+
     }
 }

@@ -93,6 +93,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\CashinDB.cs" />
+    <Compile Include="Model\OrcamentoReportModel.cs" />
     <Compile Include="Report\OrcamentoReportView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,7 +182,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\CashinMUI.Model.Orcamento.datasource" />
+    <None Include="Properties\DataSources\CashinMUI.Model.ItemOrcamentoReportModel.datasource" />
+    <None Include="Properties\DataSources\CashinMUI.Model.OrcamentoReportModel.datasource" />
     <None Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
@@ -190,11 +192,12 @@
     <Content Include="Resources\WindowsIcons-license.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Report\OrcamentoReport.rdlc" />
     <EmbeddedResource Include="Report\OrcamentoReportView.resx">
       <DependentUpon>OrcamentoReportView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Report\OrcamentoReport.rdlc" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
