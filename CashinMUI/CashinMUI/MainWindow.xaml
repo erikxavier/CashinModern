@@ -3,12 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
         Title="{Binding Titulo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsTitleVisible="True"        
-        ContentSource="{Binding ContentSource, Mode=TwoWay}" Height="768" ResizeMode="NoResize" Width="1024" WindowStartupLocation="CenterScreen"
+        ContentSource="{Binding ContentSource, Mode=TwoWay}" Height="730" ResizeMode="NoResize" Width="1024" WindowStartupLocation="CenterScreen"
         DataContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}"                   
         MenuLinkGroups="{Binding MenuLinkGroups, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
     
     <mui:ModernWindow.TitleLinks>
         <mui:Link DisplayName="configurações" Source="/View/SettingsPage.xaml" />
-        <mui:Link DisplayName="ajuda" Source="http://mui.codeplex.com" />        
+        <mui:Link DisplayName="ajuda" Source="http://mui.codeplex.com" />
     </mui:ModernWindow.TitleLinks>
+
+    <Window.Resources>
+        <Style x:Key="BigFont">
+            <Setter Property="Control.FontFamily" Value="Times New Roman" />
+            <Setter Property="Control.FontSize" Value="18" />
+            <Setter Property="Control.FontWeight" Value="Bold" />
+        </Style>
+    </Window.Resources>
+
 </mui:ModernWindow>
