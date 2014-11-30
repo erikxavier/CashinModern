@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" Width="1024"
-             DataContext="{Binding Source={StaticResource Locator}, Path=ClienteViewModel}" Loaded="UserControl_Loaded">
+             DataContext="{Binding Source={StaticResource Locator}, Path=ClienteViewModel}" Loaded="UserControl_Loaded" Initialized="UserControl_Initialized">
     <Grid Style="{StaticResource ContentRoot}">
         <StackPanel Orientation="Horizontal">
             <StackPanel Width="550">
@@ -63,8 +63,8 @@
                     </Grid.RowDefinitions>
                     <Label FontWeight="Bold" Grid.Row="0" Content="Nome*:" VerticalAlignment="Center"  Margin="12 8"/>
                     <Label Grid.Row="1" Content="E-Mail:" VerticalAlignment="Center" Margin="12 8"/>
-                    <Label Grid.Row="2" Content="Documento:" VerticalAlignment="Center"  Margin="12 8"/>
-                    <Label Grid.Row="3" Content="Tipo de Doc.:" VerticalAlignment="Center" Margin="12 8" />
+                    <Label Grid.Row="3" Content="Documento:" VerticalAlignment="Center"  Margin="12 8"/>
+                    <Label Grid.Row="2" Content="Tipo de Doc.:" VerticalAlignment="Center" Margin="12 8" />
                     <Label Grid.Row="4" Content="Telefone:" VerticalAlignment="Center" Margin="12 8"  />
                     <Separator Grid.Row="5" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0 5"/>
                     <Label Grid.Row="7" Content="Estado:" VerticalAlignment="Center" Margin="12 8" />
@@ -74,8 +74,8 @@
 
                     <TextBox TabIndex="0" Text="{Binding Cliente.Nome}" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="12 8"/>
                     <TextBox Text="{Binding Cliente.Email}" Grid.Column="1" Grid.Row="1" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="1"/>
-                    <TextBox Text="{Binding Cliente.Documento}" Grid.Column="1" Grid.Row="2" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="2"/>
-                    <ComboBox Text="{Binding Cliente.Tipodocumento}" x:Name="cbTipoDoc" Grid.Column="1" Grid.Row="3" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="3"/>
+                    <TextBox Text="{Binding Cliente.Documento}" Grid.Column="1" Grid.Row="3" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="2"/>
+                    <ComboBox Text="{Binding Cliente.Tipodocumento}" x:Name="cbTipoDoc" Grid.Column="1" Grid.Row="2" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="3"/>
                     <TextBox Text="{Binding Cliente.Telefone}" Grid.Column="1" Grid.Row="4" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="4"/>
                     <TextBox Text="{Binding Cliente.Estado, Mode=TwoWay}" Grid.Column="1" Grid.Row="7" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="6"/>
                     <TextBox Text="{Binding Cliente.Cidade, Mode=TwoWay}" Grid.Column="1" Grid.Row="8" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="7"/>

@@ -30,13 +30,18 @@ namespace CashinMUI.Pages
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             btnNovo.Focus();            
-            cbTipoDoc.Items.Add(TipoDeDocumento.CPF);
-            cbTipoDoc.Items.Add(TipoDeDocumento.CNPJ);
+           
         }
 
         private void NovoOrcamento(object sender, RoutedEventArgs e)
         {
             ((MainWindow)App.Current.MainWindow).ContentSource = new Uri("/View/OrcamentoView.xaml", UriKind.Relative);
+        }
+
+        private void UserControl_Initialized(object sender, EventArgs e)
+        {
+            cbTipoDoc.Items.Add(TipoDeDocumento.CPF);
+            cbTipoDoc.Items.Add(TipoDeDocumento.CNPJ);
         }
     }
 }
