@@ -148,7 +148,7 @@ namespace CashinMUI.ViewModel
             projetos.Links.Add(new Link()
             {
                 DisplayName = "Cadastrar",
-                Source = new System.Uri("/View/Home.xaml", UriKind.Relative)
+                Source = new System.Uri("/View/ProjetoView.xaml", UriKind.Relative)
             });
             projetos.Links.Add(new Link()
             {

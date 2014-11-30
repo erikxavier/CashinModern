@@ -302,9 +302,27 @@ namespace CashinMUI.ViewModel
             }
         }
 
+
+        private ICommand _aprovarOrcamentoCommand;
+        public ICommand AprovarOrcamentoCommand
+        {
+            get
+            {
+                return _aprovarOrcamentoCommand ?? (_aprovarOrcamentoCommand = new RelayCommand(AprovarOrcamento, CanAprovarOrcamento));
+            }
+        }
         #endregion
 
         #region Lógicas de Negócio
+
+        private bool CanAprovarOrcamento()
+        {
+            return OrcamentoSelecionado != null;
+        }
+
+        private void AprovarOrcamento() {
+            ((MainWindow)App.Current.MainWindow).ContentSource = new Uri("/View/ProjetoView.xaml#" + OrcamentoSelecionado.ID, UriKind.Relative);
+        }
 
         private bool CanExibirRelatorio()
         {
@@ -350,10 +368,11 @@ namespace CashinMUI.ViewModel
                 IsEditing = false;
                 Orcamento = null;
                 ItensOrcamento = null;
+                AtualizaOrcamentos();
             }
             catch (Exception)
             {
-                                
+                ModernDialog.ShowMessage("Não foi possível salvar as alterações no banco.", "Ops!", MessageBoxButton.OK);         
             }
         }
 
