@@ -33,13 +33,15 @@ namespace CashinMUI.View
             var viewModel = DataContext as OrcamentoViewModel;
             if (viewModel != null)
             {
-                viewModel.GetCliente(e);
+                viewModel.OnFragmnetNavigation(e);                
             }
             
         }
 
         public void OnNavigatedFrom(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
         {
+
+  
             
         }
 
@@ -50,7 +52,11 @@ namespace CashinMUI.View
 
         public void OnNavigatingFrom(FirstFloor.ModernUI.Windows.Navigation.NavigatingCancelEventArgs e)
         {
-            
+            var viewModel = DataContext as OrcamentoViewModel;
+            if (viewModel != null)
+            {
+                viewModel.OnNavigatingFrom(e);
+            }
         }
     }
 }

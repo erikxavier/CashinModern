@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
         Title="{Binding Titulo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsTitleVisible="True"        
-        ContentSource="{Binding ContentSource, Mode=TwoWay}" Width="1024" MaxWidth="1024" WindowStartupLocation="CenterScreen"
-        DataContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}" Height="700" 
+        ContentSource="{Binding ContentSource, Mode=TwoWay}" Height="768" ResizeMode="NoResize" Width="1024" WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}"                   
         MenuLinkGroups="{Binding MenuLinkGroups, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
     
     <mui:ModernWindow.TitleLinks>

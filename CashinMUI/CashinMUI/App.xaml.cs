@@ -13,5 +13,6 @@ namespace CashinMUI
     /// </summary>
     public partial class App : Application
     {
+
     }
 }
