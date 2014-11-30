@@ -31,6 +31,20 @@ namespace CashinMUI.ViewModel
 
         private CashinDB DB;
 
+        private ObservableCollection<Cliente> _clientes;
+        public ObservableCollection<Cliente> Clientes
+        {
+            get { return _clientes; }
+            set
+            {
+                if (_clientes != value)
+                {
+                    _clientes = value;
+                    RaisePropertyChanged("Clientes");
+                }
+            }
+        }
+
         private Orcamento _orcamentoSelecionado;
         public Orcamento OrcamentoSelecionado
         {
@@ -303,6 +317,11 @@ namespace CashinMUI.ViewModel
             report.Show();
         }
 
+        private bool CanExcluir()
+        {
+            return (OrcamentoSelecionado != null);
+        }
+
         private bool CanCancelar()
         {
             return IsEditing;
@@ -438,6 +457,11 @@ namespace CashinMUI.ViewModel
                 }
         }
 
+        public void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Clientes = new ObservableCollection<Cliente>(DB.Cliente.ToList());
+        }
         #endregion
+
     }
 }

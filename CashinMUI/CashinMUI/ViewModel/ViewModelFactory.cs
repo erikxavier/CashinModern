@@ -58,5 +58,15 @@ namespace CashinMUI.ViewModel
                 return _orcamentoViewModel;
             }
         }
+
+        private static ProjetoViewModel _projetoViewModel;
+        public ProjetoViewModel ProjetoViewModel
+        {
+            get
+            {
+                _projetoViewModel = new ProjetoViewModel();
+                return _projetoViewModel;
+            }
+        }
     }
 }
