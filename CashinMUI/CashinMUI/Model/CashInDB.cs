@@ -951,6 +951,10 @@ public partial class Cashindb
 
         private int _idusuario;
 
+        private bool _aprovado;
+
+        private string _descricao;
+
         private System.DateTime _validade;
 
         private EntitySet<Itemorcamento> _itemorcamento;
@@ -985,6 +989,14 @@ public partial class Cashindb
         partial void OnValidadeChanged();
 
         partial void OnValidadeChanging(System.DateTime value);
+
+        partial void OnAprovadoChanged();
+
+        partial void OnAprovadoChanging(bool value);
+
+        partial void OnDescricaoChanged();
+
+        partial void OnDescricaoChanging(string value);
         #endregion
 
 
@@ -1076,6 +1088,48 @@ public partial class Cashindb
                     this._idusuario = value;
                     this.SendPropertyChanged("Idusuario");
                     this.OnIdusuarioChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_aprovado", Name = "APROVADO", DbType = "bool", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public bool Aprovado
+        {
+            get
+            {
+                return this._aprovado;
+            }
+            set
+            {
+                if ((_aprovado != value))
+                {
+                    this.OnAprovadoChanging(value);
+                    this.SendPropertyChanging();
+                    this._aprovado = value;
+                    this.SendPropertyChanged("Aprovado");
+                    this.OnAprovadoChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_descricao", Name = "DESCRICAO", DbType = "varchar(200)", AutoSync = AutoSync.Never, CanBeNull = true)]
+        [DebuggerNonUserCode()]
+        public string Descricao
+        {
+            get
+            {
+                return this._descricao;
+            }
+            set
+            {
+                if ((_descricao != value))
+                {
+                    this.OnDescricaoChanging(value);
+                    this.SendPropertyChanging();
+                    this._descricao = value;
+                    this.SendPropertyChanged("Descricao");
+                    this.OnDescricaoChanged();
                 }
             }
         }
@@ -1286,6 +1340,8 @@ public partial class Cashindb
 
         private System.Nullable<int> _idorcamento;
 
+        private string _descricao;
+
         private System.Nullable<System.DateTime> _inicio;
 
         private System.Nullable<System.DateTime> _prazo;
@@ -1316,6 +1372,11 @@ public partial class Cashindb
         partial void OnPrazoChanged();
 
         partial void OnPrazoChanging(System.Nullable<System.DateTime> value);
+
+        partial void OnDescricaoChanged();
+
+        partial void OnDescricaoChanging(string value);
+
         #endregion
 
 
@@ -1363,6 +1424,28 @@ public partial class Cashindb
                     this._id = value;
                     this.SendPropertyChanged("ID");
                     this.OnIDChanged();
+                }
+            }
+        }
+
+
+        [Column(Storage = "_descricao", Name = "DESCRICAO", DbType = "varchar(200)", AutoSync = AutoSync.Never, CanBeNull = true)]
+        [DebuggerNonUserCode()]
+        public string Descricao
+        {
+            get
+            {
+                return this._descricao;
+            }
+            set
+            {
+                if ((_descricao != value))
+                {
+                    this.OnDescricaoChanging(value);
+                    this.SendPropertyChanging();
+                    this._descricao = value;
+                    this.SendPropertyChanged("Descricao");
+                    this.OnDescricaoChanged();
                 }
             }
         }

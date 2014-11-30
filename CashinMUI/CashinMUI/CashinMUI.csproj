@@ -90,6 +90,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\CashinDB.cs" />
+    <Compile Include="Util\ItemObservableCollection.cs" />
     <Compile Include="Util\Utilitarios.cs" />
     <Compile Include="ViewModel\ClienteViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />

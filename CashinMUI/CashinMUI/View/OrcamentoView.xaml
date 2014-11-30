@@ -6,18 +6,99 @@
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             mc:Ignorable="d"             
              DataContext="{Binding Source={StaticResource Locator}, Path=OrcamentoViewModel}">
     <Grid Style="{StaticResource ContentRoot}">
-        <ScrollViewer>
-            <StackPanel MinWidth="200">
-                <TextBlock HorizontalAlignment="Center" FontSize="30" Text="Orçamentos" Style="{StaticResource Title}" />
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock Text="Cliente:"/>
-                    <TextBlock Text="{Binding Cliente.Nome}"/>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Width="450">
+                <TextBlock Style="{StaticResource Title}" Text="Pesquisar Orçamento" FontSize="30" HorizontalAlignment="Center" Margin="0 10"/>
+                <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                    <Label  Content="pesquisar por:" Margin=" 10 5"/>
+                    <ComboBox SelectedValuePath="Tag" SelectedValue="{Binding Criterio}" VerticalAlignment="Center" Margin="0 0" Width="100" TabIndex="13">
+                        <ComboBox.Items>
+                            <ComboBoxItem Tag="nome" Content="Nome" IsSelected="True"/>
+                            <ComboBoxItem Tag="email"  Content="E-Mail"/>
+                            <ComboBoxItem Tag="documento" Content="Documento"/>
+                            <ComboBoxItem Tag="cidade" Content="Cidade"/>
+                        </ComboBox.Items>
+                    </ComboBox>
+                    <TextBox Text="{Binding Busca, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10 0" Width="240" TabIndex="14"/>
+                </StackPanel>
+                <Separator Margin="10 10"/>
+                <DataGrid ToolTip="Clique com o botão direito do mouse para obter mais opções." SelectedItem="{Binding OrcamentoSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Orcamentos}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding AprovarOrcamentoCommand}" Header="Aprovar Orçamento"/>
+                            <Separator/>
+                            <MenuItem Command="{Binding NovoCommand}" Header="Novo Cliente"/>
+                            <MenuItem Command="{Binding AlterarCommand}" Header="Alterar"/>
+                            <MenuItem Command="{Binding ExcluirCommand}" Header="Excluir"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Cliente" Binding="{Binding Cliente.Nome}"/>
+                        <DataGridTextColumn Header="Descrição" Binding="{Binding Descricao}" />
+                        <DataGridCheckBoxColumn Header="Aprovado" Binding="{Binding Aprovado}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            <GridSplitter Name="gridSplitter" Width="4" Margin="15 0"/>
+            <StackPanel Width="400">
+                <TextBlock HorizontalAlignment="Center" FontSize="30" Text="Novo Orçamento" Style="{StaticResource Title}" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20">
+                    <TextBlock Style="{StaticResource Heading2}" Text="Cliente:"/>
+                    <mui:BBCodeBlock Style="{StaticResource Heading2}" BBCode="{Binding ClienteString, Mode=OneWay}" Margin="10 0 0 0"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <TextBlock Width="80" VerticalAlignment="Center" Text="Descrição:"/>
+                        <TextBox Width="320" Text="{Binding Orcamento.Descricao}" UseLayoutRounding="False"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 10">                        
+                        <TextBlock Width="80" VerticalAlignment="Center" Text="Validade:" Margin="0 0 0 0"/>
+                        <DatePicker Width="320" SelectedDate="{Binding Orcamento.Validade, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <TextBlock Text="Descrição dos itens" HorizontalAlignment="Center" Style="{StaticResource Title}" Margin="0 10"/>
+                    <DataGrid SelectedIndex="{Binding IndexSelecionado}" SelectedItem="{Binding ItemSelecionado}" MaxHeight="250" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding ItensOrcamento, Mode=TwoWay}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False">
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>                                
+                                <MenuItem Command="{Binding AdicionaItemCommand}" Header="Adicionar Item"/>
+                                <MenuItem Command="{Binding RemoverItemCommand}" Header="Remover Item"/>                                
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Descricao}" MaxWidth="300" Width="300"  Header="Item">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            <Setter Property="TextBlock.TextAlignment" Value="Left"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Valor, StringFormat=c}" Header="Valor">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>                                        
+                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>                           
+                    </DataGrid>
+                    <TextBlock>
+                        <Hyperlink Command="{Binding AdicionaItemCommand}">Adicionar item...</Hyperlink>
+                    </TextBlock>                    
+                    <Separator/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Text="Total:"/>
+                        <TextBlock Text="{Binding Total, StringFormat={}{0:C}, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 10" HorizontalAlignment="Center">                        
+                        <Button Command="{Binding NovoOrcamentoCommand}" Content="Novo Orçamento"/>
+                        <Button Command="{Binding CancelarCommand}" Content="Cancelar" Margin="10 0"/>
+                        <Button Command="{Binding SalvarCommand}" Content="Salvar"/>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
-        </ScrollViewer>
+        </StackPanel>
     </Grid>
 </UserControl>
