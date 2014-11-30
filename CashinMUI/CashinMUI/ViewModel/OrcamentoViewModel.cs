@@ -400,19 +400,16 @@ namespace CashinMUI.ViewModel
                 IsEditing = false;
                 Orcamento = null;
                 ItensOrcamento = null;
-<<<<<<< HEAD
                 AtualizaOrcamentos();
             }
             catch (Exception)
             {
                 ModernDialog.ShowMessage("Não foi possível salvar as alterações no banco.", "Ops!", MessageBoxButton.OK);         
-=======
                 ActionString = "Orçamento";
             }
-            catch (Exception)
+            catch
             {
                                     
->>>>>>> origin/master
             }
         }
 
