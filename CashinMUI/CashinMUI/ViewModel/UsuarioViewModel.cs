@@ -191,7 +191,11 @@ namespace CashinMUI.ViewModel
                 DB.SubmitChanges();
                 IsEditing = false;
                 ModernDialog.ShowMessage("Usuário " + Usuario.Nomeusuario + " adicionado com Sucesso!", "Usuário", MessageBoxButton.OK);                
-                Usuario = null; 
+                Usuario = null;
+                if (GetUsuarioLogado() == null)
+                {
+                    ((MainWindow)App.Current.MainWindow).ContentSource = new Uri("/View/Login.xaml", UriKind.Relative);
+                }
             }
             catch (Exception)
             {

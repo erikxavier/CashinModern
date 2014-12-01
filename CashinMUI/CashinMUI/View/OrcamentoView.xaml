@@ -56,13 +56,13 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 10">
                     <TextBlock Style="{StaticResource Heading2}" Text="Cliente:"/>
                     <StackPanel IsEnabled="{Binding IsEditing}">
-                        <ComboBox ItemsSource="{Binding Clientes}" SelectedItem="{Binding Cliente}" DisplayMemberPath="Nome" Margin="20 0 0 0" Width="350" Padding="8"/>
+                        <ComboBox ItemsSource="{Binding Clientes}" SelectedItem="{Binding Cliente, Mode=TwoWay}" DisplayMemberPath="Nome" Margin="20 0 0 0" Width="350" Padding="8"/>
                         <mui:BBCodeBlock HorizontalAlignment="Center" BBCode="[url=/View/ClienteView.xaml]Clique aqui para cadastrar ou pesquisar um cliente[/url]" Margin="10 0 0 0"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Center" IsEnabled="{Binding IsEditing}">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0 5">
-                        <TextBlock Width="80" VerticalAlignment="Center" Text="Título:" FontSize="15"/>
+                        <TextBlock FontWeight="Black" Width="80" VerticalAlignment="Center" Text="Título:" FontSize="15"/>
                         <TextBox Width="350" Text="{Binding Orcamento.Titulo}" UseLayoutRounding="False" Padding="3" MaxLength="100"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0 5">

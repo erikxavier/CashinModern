@@ -385,7 +385,9 @@ namespace CashinMUI.ViewModel
 
         private bool CanSalvar()
         {
-            return (IsEditing && Cliente != null);
+            return (IsEditing 
+                && Cliente != null
+                && !string.IsNullOrEmpty(Orcamento.Titulo));
         }
 
         private void Salvar()
@@ -395,22 +397,20 @@ namespace CashinMUI.ViewModel
             try
             {
                 DB.Orcamento.InsertOnSubmit(Orcamento);
+                Orcamento.Cliente = Cliente;
                 DB.SubmitChanges();
                 ModernDialog.ShowMessage("Orçamento criado", "Sucesso!", MessageBoxButton.OK);
                 IsEditing = false;
                 Orcamento = null;
                 ItensOrcamento = null;
                 AtualizaOrcamentos();
+                ActionString = "Orçamento";
             }
             catch (Exception)
             {
-                ModernDialog.ShowMessage("Não foi possível salvar as alterações no banco.", "Ops!", MessageBoxButton.OK);         
-                ActionString = "Orçamento";
+                ModernDialog.ShowMessage("Não foi possível salvar as alterações no banco.", "Ops!", MessageBoxButton.OK);                         
             }
-            catch
-            {
-                                    
-            }
+
         }
 
         private bool CanRemoverItem()
@@ -430,8 +430,7 @@ namespace CashinMUI.ViewModel
 
         private void NovoOrcamento()
         {
-            Orcamento = new Orcamento();
-            Orcamento.Cliente = Cliente;
+            Orcamento = new Orcamento();            
             Orcamento.Usuario = Usuario;
             Orcamento.Data = DateTime.Now;
             Orcamento.Validade = DateTime.Now.AddMonths(1);

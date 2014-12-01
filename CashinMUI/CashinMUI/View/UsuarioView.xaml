@@ -84,8 +84,8 @@
                         <Label FontWeight="Bold" Grid.Row="1" Content="Senha:" VerticalAlignment="Center" Margin="12 8"/>
                         <Label FontWeight="Bold" Grid.Row="2" Content="Confirmação de Senha:" VerticalAlignment="Center" Margin="12 8"  />
                         <TextBox TabIndex="10" Text="{Binding Usuario.Nomeusuario}" Grid.Column="1" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 8"/>
-                        <PasswordBox Grid.Column="1" Grid.Row="1"  Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 8" TabIndex="11" PasswordChanged="PasswordBox_PasswordChanged"/>
-                        <PasswordBox Grid.Column="1" Grid.Row="2" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 8" TabIndex="12" PasswordChanged="PasswordBox_PasswordChanged_1"/>
+                        <PasswordBox Name="pb1" Grid.Column="1" Grid.Row="1"  Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 8" TabIndex="11" PasswordChanged="PasswordBox_PasswordChanged" IsEnabledChanged="PasswordBox_IsEnabledChanged"/>
+                        <PasswordBox Name="pb2" Grid.Column="1" Grid.Row="2" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 8" TabIndex="12" PasswordChanged="PasswordBox_PasswordChanged_1" IsEnabledChanged="PasswordBox_IsEnabledChanged"/>
                     </Grid>
                 </StackPanel>
             </StackPanel>
@@ -93,7 +93,7 @@
                 <Button Name="btnNovo" Command="{Binding NovoCommand}" Content="Novo" Margin="5 8" TabIndex="12"/>
                 <Button Command="{Binding SalvarCommand}" Content="Salvar" Margin="5 8" TabIndex="13"/>
                 <Button Command="{Binding AlterarCommand}" Content="Editar Usuario Logado" Margin="5 8" TabIndex="14"/>
-                <Button Command="{Binding CancelarCommand}" Content="Cancelar" Margin="5 8" TabIndex="15"/>
+                <Button Command="{Binding CancelarCommand}" Content="Cancelar" Margin="5 8" TabIndex="15" />
             </StackPanel>
         </StackPanel>
 

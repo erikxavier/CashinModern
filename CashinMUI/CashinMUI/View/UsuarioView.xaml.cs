@@ -62,5 +62,11 @@ namespace CashinMUI.View
             cbTipoDeDocumento.Items.Add(TipoDeDocumento.CPF);
             cbTipoDeDocumento.Items.Add(TipoDeDocumento.CNPJ);     
         }
+
+        private void PasswordBox_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            pb1.Password = "";
+            pb2.Password = "";
+        }
     }
 }
