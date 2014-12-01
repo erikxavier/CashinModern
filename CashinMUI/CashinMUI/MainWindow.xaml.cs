@@ -28,9 +28,18 @@ namespace CashinMUI
         public MainWindow()
         {
             InitializeComponent();
-            this.Language = XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);      
+            LogoffCommand = new RelayCommand(o => Logoff(o), o => App.Current.Properties["UsuarioLogado"] != null);
+            LinkNavigator.Commands.Add(new Uri("cmd://logoff", UriKind.Absolute), LogoffCommand);
+            this.Language = XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);                
         }
 
+        public RelayCommand LogoffCommand { get; private set; }
 
+        private void Logoff(object o)
+        {
+            var viewModel = DataContext as MainViewModel;
+            if (viewModel != null)
+                viewModel.LogOut();            
+        }
     }
 }

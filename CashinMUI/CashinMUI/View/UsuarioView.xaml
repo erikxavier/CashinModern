@@ -80,10 +80,10 @@
                             <RowDefinition Height="38*" />
                             <RowDefinition Height="38*" />
                         </Grid.RowDefinitions>
-                        <Label FontWeight="Bold" Grid.Row="0" Content="Nome de Usuário:" VerticalAlignment="Center"  Margin="12 8"/>
+                        <Label IsEnabled="{Binding IsNovo}" FontWeight="Bold" Grid.Row="0" Content="Nome de Usuário:" VerticalAlignment="Center"  Margin="12 8"/>
                         <Label FontWeight="Bold" Grid.Row="1" Content="Senha:" VerticalAlignment="Center" Margin="12 8"/>
                         <Label FontWeight="Bold" Grid.Row="2" Content="Confirmação de Senha:" VerticalAlignment="Center" Margin="12 8"  />
-                        <TextBox TabIndex="10" Text="{Binding Usuario.Nomeusuario}" Grid.Column="1" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 8"/>
+                        <TextBox IsEnabled="{Binding IsNovo}" TabIndex="10" Text="{Binding Usuario.Nomeusuario}" Grid.Column="1" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 8"/>
                         <PasswordBox Name="pb1" Grid.Column="1" Grid.Row="1"  Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 8" TabIndex="11" PasswordChanged="PasswordBox_PasswordChanged" IsEnabledChanged="PasswordBox_IsEnabledChanged"/>
                         <PasswordBox Name="pb2" Grid.Column="1" Grid.Row="2" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 8" TabIndex="12" PasswordChanged="PasswordBox_PasswordChanged_1" IsEnabledChanged="PasswordBox_IsEnabledChanged"/>
                     </Grid>

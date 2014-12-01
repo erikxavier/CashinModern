@@ -3,6 +3,7 @@ using FirstFloor.ModernUI.Presentation;
 using FirstFloor.ModernUI.Windows.Controls;
 using GalaSoft.MvvmLight;
 using System;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -114,7 +115,12 @@ namespace CashinMUI.ViewModel
 
         public void LogOut()
         {
-            MessageBox.Show("Saiu!");
+            if (ModernDialog.ShowMessage("Deseja mesmo deslogar ?", "Atenção!", MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+            {
+                App.Current.Properties["UsuarioLogado"] = null;
+                UsuarioLogado = null;
+                ((MainWindow)App.Current.MainWindow).ContentSource = new Uri("/View/Login.xaml", UriKind.Relative);
+            }
         }
 
         public void MontaLinksLogado()
@@ -181,7 +187,7 @@ namespace CashinMUI.ViewModel
             MenuLinkGroups.Add(entidades);
             RaisePropertyChanged("MenuLinkGroups");
         }
-
+        
         #endregion
 
     }

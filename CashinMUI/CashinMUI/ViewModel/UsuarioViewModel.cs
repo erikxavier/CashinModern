@@ -32,6 +32,21 @@ namespace CashinMUI.ViewModel
 
 
         private Usuario UsuarioLogado;
+        
+
+        private bool _isNovo = true;
+        public bool IsNovo
+        {
+            get { return _isNovo; }
+            set
+            {
+                if (_isNovo != value)
+                {
+                    _isNovo = value;
+                    RaisePropertyChanged("IsNovo");
+                }
+            }
+        }
 
         private string _confirmaSenha;
         public string ConfirmaSenha
@@ -154,8 +169,10 @@ namespace CashinMUI.ViewModel
 
         private void Alterar()
         {
-            Usuario = GetUsuarioLogado();
+            var usuario = DB.Usuario.Single(u => u.ID == GetUsuarioLogado().ID);
+            Usuario = usuario;
             IsEditing = true;
+            IsNovo = false;
         }       
 
         private bool CanSalvar()
@@ -174,24 +191,29 @@ namespace CashinMUI.ViewModel
 
         private void Salvar()
         {
+            string acao = "alterado";
             if (ConfirmaSenha != Usuario.Senha)
             {
                 ModernDialog.ShowMessage("A senha é diferente da confirmação da senha.", "Ops!", MessageBoxButton.OK);
                 return;
             }
-            if (Usuario.ID == 0)
+            if (IsNovo)
+            {
                 if (DB.Usuario.Where(u => u.Nomeusuario == Usuario.Nomeusuario).Any())
                 {
-                    ModernDialog.ShowMessage("O nome de usuário "+Usuario.Nomeusuario+" já existe.", "Ops!", MessageBoxButton.OK);
+                    ModernDialog.ShowMessage("O nome de usuário " + Usuario.Nomeusuario + " já existe.", "Ops!", MessageBoxButton.OK);
                     return;
                 }
                 DB.Usuario.InsertOnSubmit(Usuario);
+                acao = "cadastrado";
+            }
             try
             {
                 DB.SubmitChanges();
                 IsEditing = false;
-                ModernDialog.ShowMessage("Usuário " + Usuario.Nomeusuario + " adicionado com Sucesso!", "Usuário", MessageBoxButton.OK);                
+                ModernDialog.ShowMessage("Usuário " + Usuario.Nomeusuario + " "+acao+" com Sucesso!", "Usuário", MessageBoxButton.OK);                
                 Usuario = null;
+                IsNovo = true;
                 if (GetUsuarioLogado() == null)
                 {
                     ((MainWindow)App.Current.MainWindow).ContentSource = new Uri("/View/Login.xaml", UriKind.Relative);
@@ -211,6 +233,8 @@ namespace CashinMUI.ViewModel
         private void Cancelar()
         {
             Usuario = null;
+            IsEditing = false;
+            IsNovo = true;
         }
 
         private bool CanNovo()
@@ -223,6 +247,7 @@ namespace CashinMUI.ViewModel
             Usuario = new Usuario();
             Usuario.Tipodocumento = TipoDeDocumento.CPF.ToString();
             IsEditing = true;
+            IsNovo = true;
         }
 
         private void ProcuraCep()
@@ -243,15 +268,12 @@ namespace CashinMUI.ViewModel
 
         private Usuario GetUsuarioLogado()
         {
-            //ModernDialog.ShowMessage("ID Usuario Logado: " + ((Usuario)App.Current.Properties["UsuarioLogado"]).ID, "Mensagem", MessageBoxButton.OK);
-            return (Usuario)App.Current.Properties["UsuarioLogado"];
+            return (Usuario)App.Current.Properties["UsuarioLogado"];    
             //if ((Usuario)App.Current.Properties["UsuarioLogado"] != null)
             //    return (Usuario)DB.Usuario.Where(u => u.ID ==
             //        ((Usuario)App.Current.Properties["UsuarioLogado"]).ID
             //    ).Single();
-            //else return null;
-            
-
+            //else return null;            
         }
 
         #endregion
