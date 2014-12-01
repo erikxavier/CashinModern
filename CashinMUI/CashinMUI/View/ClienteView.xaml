@@ -6,6 +6,17 @@
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" Width="1024"
              DataContext="{Binding Source={StaticResource Locator}, Path=ClienteViewModel}" Loaded="UserControl_Loaded" Initialized="UserControl_Initialized">
+    <UserControl.Resources>
+        <Style x:Key="textBoxInError" TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+              Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+              Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid Style="{StaticResource ContentRoot}">
         <StackPanel Orientation="Horizontal">
             
@@ -92,7 +103,7 @@
                     <ComboBox Grid.Column="1" Grid.Row="3" Text="{Binding DocTipo}" Width="350" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="13,5,0,5" Padding="8" x:Name="cbTipoDoc" TabIndex="2"/>
                     <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Cliente.Documento}" Width="350" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12 5" Padding="3" TabIndex="3" MaxLength="{Binding DocLenght}"/>
                     <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Cliente.Telefone}" Width="350" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12 5" Padding="3" TabIndex="4" MaxLength="20"/>
-                    <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding CEP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="350" VerticalAlignment="Center" Margin="12 5" Padding="4" TabIndex="5" MaxLength="8"/>
+                    <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding CEP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="350" VerticalAlignment="Center" Margin="12 5" Padding="4" TabIndex="5" MaxLength="8"/>                       
                     <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Cliente.Estado, Mode=TwoWay}" Width="350" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12 5" Padding="3" TabIndex="6" MaxLength="2"/>
                     <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding Cliente.Cidade, Mode=TwoWay}" Width="350" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12 5" Padding="3" TabIndex="7" MaxLength="100"/>
                     <TextBox Grid.Column="1" Grid.Row="10" Text="{Binding Cliente.Endereco, Mode=TwoWay}" Width="350" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12 5"  Padding="3" TabIndex="8" MaxLength="100"/>

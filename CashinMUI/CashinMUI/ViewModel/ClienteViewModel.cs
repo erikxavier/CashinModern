@@ -14,6 +14,8 @@ using FirstFloor.ModernUI.Windows.Controls;
 using System.Windows;
 using CashinMUI.Util;
 using System.Windows.Navigation;
+using System.ComponentModel;
+using System.Windows.Media;
 
 namespace CashinMUI.ViewModel
 {
@@ -25,11 +27,7 @@ namespace CashinMUI.ViewModel
             DB = new CashinDB();
             DB.Log = Console.Out;
             AtualizaClientes();
-
-            //inicia  ItensBusca
-
             
-            //NovoCliente();
         }
 
         #region Variáveis
@@ -43,7 +41,7 @@ namespace CashinMUI.ViewModel
                 else return null;
                 }
             set
-            {
+            {                
                 if (Cliente != null)
                     if (Cliente.Tipodocumento != value)
                     {
