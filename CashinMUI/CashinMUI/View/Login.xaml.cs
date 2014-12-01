@@ -82,5 +82,10 @@ namespace CashinMUI.View
         {
             
         }
+
+        private void UserControl_Initialized(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

@@ -11,13 +11,4 @@
         <mui:Link DisplayName="configurações" Source="/View/SettingsPage.xaml" />
         <mui:Link DisplayName="ajuda" Source="http://mui.codeplex.com" />
     </mui:ModernWindow.TitleLinks>
-
-    <Window.Resources>
-        <Style x:Key="BigFont">
-            <Setter Property="Control.FontFamily" Value="Times New Roman" />
-            <Setter Property="Control.FontSize" Value="18" />
-            <Setter Property="Control.FontWeight" Value="Bold" />
-        </Style>
-    </Window.Resources>
-
 </mui:ModernWindow>

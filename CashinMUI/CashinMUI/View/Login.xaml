@@ -5,10 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d"
-             DataContext="{Binding Source={StaticResource Locator}, Path=LoginViewModel}" Loaded="UserControl_Loaded">
+             DataContext="{Binding Source={StaticResource Locator}, Path=LoginViewModel}" Loaded="UserControl_Loaded" Initialized="UserControl_Initialized">
+    
     <Grid Style="{StaticResource ContentRoot}">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="CashIn" Style="{StaticResource Heading1}" FontSize="120" HorizontalAlignment="Center" Margin="0 0"/>
+                
+            <Image Width="400" Height="150" Name="Logo" Source="../Image/Logo.png"/>
+            
             <TextBlock Text="Módulo de Gestão de Serviços Autônomos" HorizontalAlignment="Center" FontSize="16" Margin="0 0 0 10"/>
             <TextBlock Text="Login" Style="{StaticResource Title}" HorizontalAlignment="Center" Margin="0 0 0 10"/>
             <Grid>
@@ -20,9 +23,9 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-            <TextBlock Text="Usuário:" Style="{StaticResource Title}" FontSize="30" Margin="0 5" VerticalAlignment="Center"/>
-                <TextBlock Grid.Row="1" Text="Senha:" Style="{StaticResource Title}" FontSize="30" Margin="0 5" VerticalAlignment="Center"/>
-                <TextBox Name="tbUser" Grid.Column="1" FontSize="30" Text="{Binding Username}" Margin="0 5" VerticalAlignment="Center" GotFocus="TextBox_GotFocus">
+                <TextBlock Text="Usuário:" Style="{StaticResource Title}" FontSize="30" Margin="0 5" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Text="Senha:" Style="{StaticResource Title}" FontSize="30" Margin="0 5"/>
+                <TextBox x:Name="tbUser" Grid.Column="1" FontSize="30" Text="{Binding Username}" Margin="0 5" VerticalAlignment="Center" GotFocus="TextBox_GotFocus">
                     <TextBox.InputBindings>
                         <KeyBinding Command="{Binding LoginCommand}" Key="Return" />
                     </TextBox.InputBindings>
@@ -30,11 +33,11 @@
                 <PasswordBox PasswordChanged="PasswordBox_PasswordChanged" Grid.Column="1" FontSize="30"  Grid.Row="1" Margin="0 5" VerticalAlignment="Center" GotFocus="PasswordBox_GotFocus" KeyDown="PasswordBox_KeyDown">
                     <PasswordBox.InputBindings>
                         <KeyBinding Command="{Binding LoginCommand}" Key="Return" />
-                    </PasswordBox.InputBindings>                        
+                    </PasswordBox.InputBindings>
                 </PasswordBox>
             </Grid>
-            <mui:BBCodeBlock BBCode="[url=/View/UsuarioView.xaml]Ainda não está cadastrado ? Clique aqui![/url]" HorizontalAlignment="Center" Margin="0 5 0 0"/>                            
-            <Button Name="btnEntrar" Command="{Binding LoginCommand}" Content="Entrar" FontSize="30" FontFamily="Segoe UI Semibold" Margin="0 10 0 0"/>
+            <mui:BBCodeBlock BBCode="[url=/View/UsuarioView.xaml]Ainda não está cadastrado ? Clique aqui![/url]" HorizontalAlignment="Center" Margin="0 5 0 0"/>
+            <Button x:Name="btnEntrar" Command="{Binding LoginCommand}" Content="Entrar" FontSize="30" FontFamily="Segoe UI Semibold" Margin="0 10 0 0"/>
             <TextBlock Text="{Binding Mensagem}" Foreground="Red" HorizontalAlignment="Center"/>
 
         </StackPanel>
