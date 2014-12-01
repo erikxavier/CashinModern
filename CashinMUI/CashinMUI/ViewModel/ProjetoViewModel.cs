@@ -19,12 +19,30 @@ namespace CashinMUI.ViewModel
 
         public ProjetoViewModel()
         {
+            Usuario = (Usuario)App.Current.Properties["UsuarioLogado"];  
             DB = new CashinDB();
+            AtualizaProjetos();
         }
 
         #region Variáveis
 
         private CashinDB DB;
+
+        private Usuario Usuario;
+
+        private bool _isNovo = true;
+        public bool IsNovo
+        {
+            get { return _isNovo; }
+            set
+            {
+                if (_isNovo != value)
+                {
+                    _isNovo = value;
+                    RaisePropertyChanged("IsNovo");
+                }
+            }
+        }
 
         private bool _isEditing;
         public bool IsEditing
@@ -127,6 +145,85 @@ namespace CashinMUI.ViewModel
             }
         }
 
+        private ObservableCollection<Projeto> _projetos;
+        public ObservableCollection<Projeto> Projetos
+        {
+            get { return _projetos; }
+            set
+            {
+                if (_projetos != value)
+                {
+                    _projetos = value;
+                    RaisePropertyChanged("Projetos");
+                }
+            }
+        }
+
+        private Projeto _projetoSelecionado;
+        public Projeto ProjetoSelecionado
+        {
+            get { return _projetoSelecionado; }
+            set
+            {
+                if (_projetoSelecionado != value)
+                {
+                    _projetoSelecionado = value;
+                    RaisePropertyChanged("ProjetoSelecionado");
+                    if (_projetoSelecionado != null && !IsEditing)
+                        SelecionaProjeto();
+                }
+            }
+        }
+
+        private string _criterio;
+        public string Criterio
+        {
+            get { return _criterio; }
+            set
+            {
+                if (_criterio != value)
+                {
+                    _criterio = value;
+                    RaisePropertyChanged("Criterio");
+                    Busca = string.Empty;
+                    if (!string.IsNullOrEmpty(_criterio))
+                        CriterioExiste = true;
+                    else
+                        CriterioExiste = false;
+                }
+            }
+        }
+
+        private bool _criterioExiste = false;
+        public bool CriterioExiste
+        {
+            get { return _criterioExiste; }
+            set
+            {
+                if (_criterioExiste != value)
+                {
+                    _criterioExiste = value;
+                    RaisePropertyChanged("CriterioExiste");
+                }
+            }
+        }
+
+
+        private string _busca;
+        public string Busca
+        {
+            get { return _busca; }
+            set
+            {
+                if (_busca != value)
+                {
+                    _busca = value;
+                    RaisePropertyChanged("Busca");
+                    AtualizaProjetos();
+                }
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -200,8 +297,7 @@ namespace CashinMUI.ViewModel
         private void Novo()
         {
             Projeto = new Projeto();
-            Tarefas = new ObservableCollection<Tarefa>();
-            Projeto.Orcamento = Orcamento;
+            Tarefas = new ObservableCollection<Tarefa>();            
             Projeto.Inicio = DateTime.Now;
             Projeto.Titulo = Orcamento.Titulo;
             Projeto.Descricao = Orcamento.Descricao;
@@ -215,40 +311,128 @@ namespace CashinMUI.ViewModel
 
         private void Salvar()
         {
+            string acao;
+            if (IsNovo)
+            {
+                Projeto.Tarefa.Clear();
+                Projeto.Tarefa.AddRange(Tarefas);
+                Projeto.Orcamento = Orcamento;
+                Orcamento.Aprovado = true;
+                DB.Projeto.InsertOnSubmit(Projeto);
+                acao = "adicionado";
+            }
+            else
+            {
+                try
+                {
+                    //Adiciona items novos do Tarefas para Projeto.Tarefa
+                    var novosItens = Tarefas.Except(Projeto.Tarefa, new CompareTarefa());
+                    Projeto.Tarefa.AddRange(novosItens);
+
+                    //Remove os itens que estão no Projeto.Tarefa mas não estão no Tarefas (foram removidos)
+                    var itensRemovidos = Projeto.Tarefa.Except(Tarefas, new CompareTarefa()).ToList();
+                    if (itensRemovidos.Any())
+                    {
+                        foreach (var item in itensRemovidos)
+                        {
+                            Projeto.Tarefa.Remove(item);
+                            DB.Tarefa.DeleteOnSubmit(item);
+                        }
+                    }
+                    acao = "alterado";
+                }
+                catch (Exception ex)
+                {
+                    ModernDialog.ShowMessage("Erro ao alterar projeto:" + ex.Message, "Ops!", MessageBoxButton.OK);
+                    Cancelar();
+                    return;
+                }
+            }
             try
             {
-                Projeto.Tarefa.AddRange(Tarefas);
-                DB.Projeto.InsertOnSubmit(Projeto);                    
                 DB.SubmitChanges();
-                Orcamento.Aprovado = true;
-                DB.SubmitChanges();
-                ModernDialog.ShowMessage("Projeto Criado", "Sucesso!", MessageBoxButton.OK);
+                ModernDialog.ShowMessage("O Projeto Nº " + Projeto.ID.ToString("0:000") + " foi " + acao + " com sucesso!", "Projeto", MessageBoxButton.OK);
                 IsEditing = false;
+                AtualizaProjetos();
+                //ActionString = "Orçamento";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ModernDialog.ShowMessage("Não foi possível salvar as alterações no banco:\n"+ex.Message, "Ops!", MessageBoxButton.OK);
+                ModernDialog.ShowMessage("Não foi possível salvar as alterações no banco.", "Ops!", MessageBoxButton.OK);
             }
+            //try
+            //{
+            //    Projeto.Tarefa.AddRange(Tarefas);
+            //    DB.Projeto.InsertOnSubmit(Projeto);                    
+            //    DB.SubmitChanges();
+            //    Orcamento.Aprovado = true;
+            //    DB.SubmitChanges();
+            //    ModernDialog.ShowMessage("Projeto Criado", "Sucesso!", MessageBoxButton.OK);
+            //    IsEditing = false;
+            //}
+            //catch (Exception ex)
+            //{
+            //    ModernDialog.ShowMessage("Não foi possível salvar as alterações no banco:\n"+ex.Message, "Ops!", MessageBoxButton.OK);
+            //}
         }
 
         private bool CanRemoverTarefa()
         {
-            return TarefaSelecionada != null;
+            return TarefaSelecionada != null && IsEditing;
         }
 
         private void RemoverTarefa()
         {
-            Tarefas.RemoveAt(IndexSelecionado);            
+            Tarefas.Remove(TarefaSelecionada);            
         }
 
         private bool CanAdicionaTarefa()
         {
-            return (Projeto != null);
+            return (Projeto != null && IsEditing);
         }
 
         private void AdicionaTarefa()
         {
             Tarefas.Add(new Tarefa());            
+        }
+
+        private bool CanAlterar()
+        {
+            return (!IsEditing && Orcamento != null);
+        }
+
+        private void Alterar()
+        {
+            IsEditing = true;
+            IsNovo = false;
+            //ActionString = "Alterar Orçamento";
+        }
+
+        private void AtualizaProjetos()
+        {
+            var projetos = from p in DB.Projeto where p.Orcamento.Idusuario == Usuario.ID select p;
+            if (!string.IsNullOrEmpty(Busca))
+            {
+                switch (Criterio)
+                {
+                    case "cliente":
+                        projetos = from c in projetos where c.Orcamento.Cliente.Nome.ToLower().Contains(Busca.ToLower()) select c;
+                        break;
+                    case "titulo":
+                        projetos = from c in projetos where c.Titulo.ToLower().Contains(Busca.ToLower()) select c;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            Projetos = new ObservableCollection<Projeto>(projetos);
+        }
+
+        private void SelecionaProjeto()
+        {
+            Projeto = ProjetoSelecionado;
+            Orcamento = ProjetoSelecionado.Orcamento;
+            Tarefas = new ObservableCollection<Tarefa>(ProjetoSelecionado.Tarefa);
         }
 
         internal void OnFragmnetNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)
