@@ -36,6 +36,61 @@ namespace CashinMUI.ViewModel
 
         private CashinDB DB;
 
+        public string DocTipo
+        {
+            get {
+                if (Cliente != null) return Cliente.Tipodocumento;
+                else return null;
+                }
+            set
+            {
+                if (Cliente != null)
+                    if (Cliente.Tipodocumento != value)
+                    {
+                        Cliente.Tipodocumento = value;
+                        RaisePropertyChanged("DocTipo");
+                        if (Cliente.Tipodocumento == TipoDeDocumento.CPF.ToString())
+                        {
+                            DocLenght = "14";
+                        }
+                        else
+                        {
+                            DocLenght = "18";
+                        }
+                        Cliente.Documento = null;
+                    }
+            }
+        }
+
+
+        private string _docLenght;
+        public string DocLenght
+        {
+            get { return _docLenght; }
+            set
+            {
+                if (_docLenght != value)
+                {
+                    _docLenght = value;
+                    RaisePropertyChanged("DocLenght");
+                }
+            }
+        }
+
+        private string _docMask;
+        public string DocMask
+        {
+            get { return _docMask; }
+            set
+            {
+                if (_docMask != value)
+                {
+                    _docMask = value;
+                    RaisePropertyChanged("DocMask");
+                }
+            }
+        }
+
         private string _actionString = "Cliente";
         public string ActionString
         {
@@ -104,7 +159,6 @@ namespace CashinMUI.ViewModel
             get
             {
                 return _clientes;
-                
             }
             set
             {
@@ -332,6 +386,7 @@ namespace CashinMUI.ViewModel
 
         private void Cancelar()
         {
+            DocTipo = null;
             Cliente = null;
             ActionString = "Cliente";
         }
@@ -345,7 +400,7 @@ namespace CashinMUI.ViewModel
         {
             Cliente = new Cliente();
             Cliente.Usuario = Usuario;
-            Cliente.Tipodocumento = TipoDeDocumento.CPF.ToString();
+            DocTipo = TipoDeDocumento.CPF.ToString();
             ActionString = "Novo Cliente";
         }
 
