@@ -21,6 +21,7 @@ namespace CashinMUI.Model
         public string EmailUsuario { get; set; }
         public DateTime Data { get; set; }
         public DateTime Validade {get; set;}
+        public string Codigo { get; set; }
 
         public List<ItemOrcamentoReportModel> Itens { get; set; }
     }

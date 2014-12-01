@@ -31,16 +31,14 @@ namespace CashinMUI.Report
             orc.FoneUsuario = o.Usuario.Telefone;
             orc.NomeFantasia = o.Usuario.Nomefantasia;
             orc.Titulo = o.Titulo;
-            orc.Descricao = o.Descricao;
+            orc.Descricao = "\t\t\t\t" + o.Descricao;
             orc.Usuario = o.Usuario.Nome;
             orc.Validade = o.Validade;
+            orc.Codigo = o.ID.ToString("000");
 
             orc.Itens = new List<ItemOrcamentoReportModel>();
-            //for (int i = 0; i < 10; i++)
-            //    orc.Itens.Add(new ItemOrcamentoReportModel("Item " + i, i * 100));
             foreach (Itemorcamento item in o.Itemorcamento)
             {
-                //ItemOrcamentoReportModel novoItem = new ItemOrcamentoReportModel(item.Descricao, item.Valor.GetValueOrDefault());
                 orc.Itens.Add(new ItemOrcamentoReportModel(item.Descricao, item.Valor.GetValueOrDefault()));
             }
         }
@@ -49,20 +47,12 @@ namespace CashinMUI.Report
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             OrcamentoReportModelBindingSource.DataSource = orc;
             ItemOrcamentoReportModelBindingSource.DataSource = orc.Itens;         
-            this.reportViewer1.RefreshReport();
-            this.reportViewer1.RefreshReport();
             this.reportViewer1.RefreshReport();
         }
 
         private void OrcamentoBindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void reportViewer1_Load(object sender, EventArgs e)
         {
 
         }
