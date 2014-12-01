@@ -100,6 +100,7 @@
     <Compile Include="Report\OrcamentoReportView.Designer.cs">
       <DependentUpon>OrcamentoReportView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util\Compare.cs" />
     <Compile Include="Util\ItemObservableCollection.cs" />
     <Compile Include="Util\Utilitarios.cs" />
     <Compile Include="ViewModel\ClienteViewModel.cs" />

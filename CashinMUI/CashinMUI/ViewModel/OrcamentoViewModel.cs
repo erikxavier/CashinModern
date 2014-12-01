@@ -31,6 +31,20 @@ namespace CashinMUI.ViewModel
 
         private CashinDB DB;
 
+        private bool _isNovo = true;
+        public bool IsNovo
+        {
+            get { return _isNovo;}
+            set
+            {
+                if (_isNovo != value)
+                {
+                    _isNovo = value;
+                    RaisePropertyChanged("IsNovo");
+                }
+            }
+        }
+
         private ObservableCollection<Cliente> _clientes;
         public ObservableCollection<Cliente> Clientes
         {
@@ -342,9 +356,39 @@ namespace CashinMUI.ViewModel
                 return _aprovarOrcamentoCommand ?? (_aprovarOrcamentoCommand = new RelayCommand(AprovarOrcamento, CanAprovarOrcamento));
             }
         }
+
+        private ICommand _alterarOrcamentoCommand;
+        public ICommand AlterarOrcamentoCommand
+        {
+            get
+            {
+                return _alterarOrcamentoCommand ?? (_alterarOrcamentoCommand = new RelayCommand(Alterar, CanAlterar));
+            }
+        }
+
+        private ICommand _excluirOrcamentoCommand;
+        public ICommand ExcluirOrcamentoCommand
+        {
+            get
+            {
+                return _excluirOrcamentoCommand ?? (_excluirOrcamentoCommand = new RelayCommand(Excluir, CanExcluir));
+            }
+        }
         #endregion
 
         #region Lógicas de Negócio
+
+        private bool CanAlterar()
+        {
+            return (!IsEditing && Orcamento != null);
+        }
+
+        private void Alterar()
+        {
+            IsEditing = true;
+            IsNovo = false;
+            ActionString = "Alterar Orçamento";
+        }
 
         private bool CanAprovarOrcamento()
         {
@@ -368,7 +412,29 @@ namespace CashinMUI.ViewModel
 
         private bool CanExcluir()
         {
-            return (OrcamentoSelecionado != null);
+            return (OrcamentoSelecionado != null && !IsEditing);
+        }
+
+        private void Excluir()
+        {
+            if (OrcamentoSelecionado.Aprovado)
+            {
+                ModernDialog.ShowMessage("Orçamento aprovados não podem ser excluidos!", "Ops!", MessageBoxButton.OK);
+                return;
+            }
+            if (ModernDialog.ShowMessage("Deseja realmente excluir o orçamento Nº "+OrcamentoSelecionado.ID.ToString("000")+" ?", "Orçamento", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                return;
+            DB.Orcamento.DeleteOnSubmit(OrcamentoSelecionado);
+            try
+            {
+                DB.SubmitChanges();
+                ModernDialog.ShowMessage("Orçamento excluído com sucesso!", "Orçamento", MessageBoxButton.OK);
+                AtualizaOrcamentos();
+            }
+            catch (Exception ex)
+            {
+                ModernDialog.ShowMessage("Erro ao excluir orçamento: "+ex.Message, "Ops!", MessageBoxButton.OK);                 
+            }
         }
 
         private bool CanCancelar()
@@ -392,17 +458,47 @@ namespace CashinMUI.ViewModel
 
         private void Salvar()
         {
-            Orcamento.Itemorcamento.Clear();
-            Orcamento.Itemorcamento.AddRange(ItensOrcamento);
-            try
+            string acao;
+            if (IsNovo)
             {
-                DB.Orcamento.InsertOnSubmit(Orcamento);
+                Orcamento.Itemorcamento.Clear();
+                Orcamento.Itemorcamento.AddRange(ItensOrcamento);
                 Orcamento.Cliente = Cliente;
+                DB.Orcamento.InsertOnSubmit(Orcamento);
+                acao = "adicionado";
+            }
+            else
+            {
+                try
+                {
+                    //Adiciona items novos do ItensOrcamento para Orcamento.Itemorcamento
+                    var novosItens = ItensOrcamento.Except(Orcamento.Itemorcamento, new CompareItem());
+                    Orcamento.Itemorcamento.AddRange(novosItens);                    
+
+                    //Remove os itens que estão no Orcamento.Itemorcamento mas não estão no ItensOrcamento (foram removidos)
+                    var itensRemovidos = Orcamento.Itemorcamento.Except(ItensOrcamento, new CompareItem()).ToList();
+                    if (itensRemovidos.Any())
+                    {
+                        foreach (var item in itensRemovidos)
+                        {
+                            Orcamento.Itemorcamento.Remove(item);
+                            DB.Itemorcamento.DeleteOnSubmit(item);
+                        }
+                    }
+                    acao = "alterado";
+                }
+                catch (Exception ex)
+                {
+                    ModernDialog.ShowMessage("Erro ao alterar orçamento:" + ex.Message, "Ops!", MessageBoxButton.OK);
+                    Cancelar();
+                    return;
+                }
+            }
+            try
+            {                
                 DB.SubmitChanges();
-                ModernDialog.ShowMessage("Orçamento criado", "Sucesso!", MessageBoxButton.OK);
-                IsEditing = false;
-                Orcamento = null;
-                ItensOrcamento = null;
+                ModernDialog.ShowMessage("O Orçamento Nº "+Orcamento.ID.ToString("0:000")+" foi "+acao+" com sucesso!", "Orçamento", MessageBoxButton.OK);
+                IsEditing = false;                
                 AtualizaOrcamentos();
                 ActionString = "Orçamento";
             }
@@ -436,6 +532,7 @@ namespace CashinMUI.ViewModel
             Orcamento.Validade = DateTime.Now.AddMonths(1);
             ItensOrcamento = new ItemObservableCollection<Itemorcamento>();
             IsEditing = true;
+            IsNovo = true;
             ActionString = "Novo Orçamento";
         }
 
