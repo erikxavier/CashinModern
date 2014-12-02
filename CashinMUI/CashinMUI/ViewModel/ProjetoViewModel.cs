@@ -1,6 +1,7 @@
 ﻿using CashinMUI.Model;
 using CashinMUI.Util;
 using FirstFloor.ModernUI.Windows.Controls;
+using FirstFloor.ModernUI.Windows.Navigation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -44,7 +45,21 @@ namespace CashinMUI.ViewModel
             }
         }
 
-        private bool _isEditing;
+        private bool _readOnly = true;
+        public bool ReadOnly
+        {
+            get { return _readOnly; }
+            set
+            {
+                if (_readOnly != value)
+                {
+                    _readOnly = value;
+                    RaisePropertyChanged("ReadOnly");
+                }
+            }
+        }
+
+        private bool _isEditing = false;
         public bool IsEditing
         {
             get { return _isEditing;}
@@ -52,6 +67,7 @@ namespace CashinMUI.ViewModel
                 if (_isEditing != value)
                 {
                     _isEditing = value;
+                    ReadOnly = !_isEditing;
                     RaisePropertyChanged("IsEditing");
                 }
             }
@@ -273,6 +289,15 @@ namespace CashinMUI.ViewModel
             }
         }
 
+        private ICommand _alterarCommand;
+        public ICommand AlterarCommand
+        {
+            get
+            {
+                return _alterarCommand ?? (_alterarCommand = new RelayCommand(Alterar, CanAlterar));
+            }
+        }
+
 
         #endregion
 
@@ -280,13 +305,22 @@ namespace CashinMUI.ViewModel
 
         public bool CanCancelar()
         {
-            return Projeto != null;
+            return IsEditing && Projeto != null;            
         }
 
         public void Cancelar()
         {
-            Projeto = null;
+            if (!IsNovo)
+            {                
+                Tarefas = new ObservableCollection<Tarefa>(Projeto.Tarefa);
+            }
+            else
+            {
+                Projeto = null;
+                Tarefas = null;
+            }
             IsEditing = false;
+            IsNovo = true;
         }
 
         private bool CanNovo()
@@ -398,11 +432,16 @@ namespace CashinMUI.ViewModel
 
         private bool CanAlterar()
         {
-            return (!IsEditing && Orcamento != null);
+            return (!IsEditing && Projeto != null);
         }
 
         private void Alterar()
         {
+            if (Projeto.Finalizado)
+            {
+                ModernDialog.ShowMessage("Você não pode alterar um projeto finalizado.", "Ops!", MessageBoxButton.OK);
+                return;
+            }
             IsEditing = true;
             IsNovo = false;
             //ActionString = "Alterar Orçamento";
@@ -425,7 +464,8 @@ namespace CashinMUI.ViewModel
                         break;
                 }
             }
-            Projetos = new ObservableCollection<Projeto>(projetos);
+            if (projetos.Any())
+                Projetos = new ObservableCollection<Projeto>(projetos);
         }
 
         private void SelecionaProjeto()
@@ -440,6 +480,19 @@ namespace CashinMUI.ViewModel
             Orcamento = DB.Orcamento.Where(o => o.ID == int.Parse(e.Fragment)).SingleOrDefault();
             if (Orcamento != null)
                 Novo();
+        }
+
+        public void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            if (IsEditing)
+                if (ModernDialog.ShowMessage("Deseja cancelar a edição do projeto atual ?", "Alerta!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    Cancelar();
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
         }
 
         #endregion

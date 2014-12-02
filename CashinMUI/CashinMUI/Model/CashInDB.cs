@@ -1389,7 +1389,7 @@ public partial class Cashindb
 
         private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
 
-        private System.Nullable<sbyte> _finalizado;
+        private bool _finalizado;
 
         private int _id;
 
@@ -1412,7 +1412,7 @@ public partial class Cashindb
 
         partial void OnFinalizadoChanged();
 
-        partial void OnFinalizadoChanging(System.Nullable<sbyte> value);
+        partial void OnFinalizadoChanging(bool value);
 
         partial void OnIDChanged();
 
@@ -1447,9 +1447,9 @@ public partial class Cashindb
             this.OnCreated();
         }
 
-        [Column(Storage = "_finalizado", Name = "FINALIZADO", DbType = "tinyint(1)", AutoSync = AutoSync.Never)]
+        [Column(Storage = "_finalizado", Name = "FINALIZADO", DbType = "bool", AutoSync = AutoSync.Never, CanBeNull=false)]
         [DebuggerNonUserCode()]
-        public System.Nullable<sbyte> Finalizado
+        public bool Finalizado
         {
             get
             {
@@ -1690,7 +1690,7 @@ public partial class Cashindb
 
         private string _atividade;
 
-        private System.Nullable<sbyte> _finalizada;
+        private bool _finalizada;
 
         private int _id;
 
@@ -1709,7 +1709,7 @@ public partial class Cashindb
 
         partial void OnFinalizadaChanged();
 
-        partial void OnFinalizadaChanging(System.Nullable<sbyte> value);
+        partial void OnFinalizadaChanging(bool value);
 
         partial void OnIDChanged();
 
@@ -1752,9 +1752,9 @@ public partial class Cashindb
             }
         }
 
-        [Column(Storage = "_finalizada", Name = "FINALIZADA", DbType = "tinyint(1)", AutoSync = AutoSync.Never)]
+        [Column(Storage = "_finalizada", Name = "FINALIZADA", DbType = "bool", AutoSync = AutoSync.Never, CanBeNull=false)]
         [DebuggerNonUserCode()]
-        public System.Nullable<sbyte> Finalizada
+        public bool Finalizada
         {
             get
             {

@@ -14,8 +14,8 @@
                 <TextBlock Style="{StaticResource Heading2}" Text="{Binding OrcamentoString}"/>
             </StackPanel>
             <mui:BBCodeBlock HorizontalAlignment="Center" BBCode="[url=/View/OrcamentoView.xaml]Clique aqui para cadastrar ou pesquisar um orçamento[/url]" Margin="10 0 0 0"/>
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Width="400">
+            <StackPanel Orientation="Horizontal" Margin="0 10">
+                <StackPanel Width="470">
                     <TextBlock Style="{StaticResource Title}" Text="Pesquisar Projeto" HorizontalAlignment="Center" Margin="0 10"/>
                     <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                         <Label Content="Pesquisar por:" FontSize="15" Margin="10 5" Width="110"/>
@@ -31,7 +31,7 @@
                         <TextBox Text="{Binding Busca, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10 0" Width="250" Padding="3" TabIndex="14" IsEnabled="{Binding CriterioExiste}"/>
                     </StackPanel>
                     <Separator Margin="10 10"/>
-                    <DataGrid ToolTip="Clique com o botão direito do mouse para obter mais opções." SelectedItem="{Binding OrcamentoSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Projetos}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid ToolTip="Clique com o botão direito do mouse para obter mais opções." SelectedItem="{Binding ProjetoSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Projetos}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Command="{Binding AprovarOrcamentoCommand}" Header="Aprovar Orçamento"/>
@@ -50,40 +50,45 @@
                             </DataGridTextColumn>
 
                             <DataGridTextColumn Width="280" Header="Titulo" Binding="{Binding Titulo}" />
+                            <DataGridTextColumn Width="80" Header="Prazo" Binding="{Binding Prazo, StringFormat=d}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Right"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
                 <GridSplitter Width="4" Margin="15 0"/>
-                <StackPanel>
-                    <StackPanel Width="420">
+                <StackPanel Height="420">
+                    <StackPanel Width="420" IsEnabled="{Binding IsEditing}">
                         <TextBlock Text="Informações" Style="{StaticResource Title}" HorizontalAlignment="Center" Margin="0 10"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0 5">
                             <TextBlock Width="80" VerticalAlignment="Center" Text="Título:"/>
-                            <TextBox Width="320" Text="{Binding Orcamento.Titulo}" UseLayoutRounding="False"/>
+                            <TextBox Width="320" Text="{Binding Projeto.Titulo}" UseLayoutRounding="False"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0 5">
                             <TextBlock Width="80" VerticalAlignment="Top" Text="Descrição:"/>
-                            <TextBox Width="320" Text="{Binding Orcamento.Descricao}" UseLayoutRounding="False" Height="60"/>
+                            <TextBox Width="320" Text="{Binding Projeto.Descricao}" UseLayoutRounding="False" Height="60"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0 5">
                             <TextBlock Width="80" VerticalAlignment="Center" Text="Inicio:" Margin="0 0 0 0"/>
-                            <DatePicker Width="320" SelectedDate="{Binding Projeto.Inicio, Mode=TwoWay}"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0 5">
-                            <TextBlock Width="80" VerticalAlignment="Center" Text="Prazo:" Margin="0 0 0 0"/>
-                            <DatePicker Width="320" SelectedDate="{Binding Projeto.Prazo, Mode=TwoWay}"/>
-                        </StackPanel>
+                            <DatePicker Width="120" SelectedDate="{Binding Projeto.Inicio, Mode=TwoWay}"/>
+                            <TextBlock VerticalAlignment="Center" Text="Prazo:" Margin="20 0 20 0"/>
+                            <DatePicker Width="120" SelectedDate="{Binding Projeto.Prazo, Mode=TwoWay}"/>
+                        </StackPanel>        
                     </StackPanel>
                     <TextBlock Text="Tarefas" Style="{StaticResource Title}" HorizontalAlignment="Center" Margin="0 10"/>
-                    <DataGrid SelectedIndex="{Binding IndexSelecionado}" SelectedItem="{Binding TarefaSelecionda}" MaxHeight="250" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding Tarefas, Mode=TwoWay}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False">
+                    <DataGrid IsReadOnly="{Binding ReadOnly}" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectedIndex="{Binding IndexSelecionado}" SelectedItem="{Binding TarefaSelecionada}" MaxHeight="150" ItemsSource="{Binding Tarefas, Mode=TwoWay}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False">
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Command="{Binding AdicionaItemCommand}" Header="Adicionar Item"/>
-                                <MenuItem Command="{Binding RemoverItemCommand}" Header="Remover Item"/>
+                                <MenuItem Command="{Binding AdicionaTarefaCommand}" Header="Adicionar Item"/>
+                                <MenuItem Command="{Binding RemoverTarefaCommand}" Header="Remover Item"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Atividade}" MaxWidth="330" Width="400"  Header="Atividade">
+                            <DataGridTextColumn Binding="{Binding Atividade}" MaxWidth="330" Width="330"  Header="Atividade">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
                                         <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -91,13 +96,7 @@
                                     </Style>
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
-                            <DataGridCheckBoxColumn Binding="{Binding Finalizada}" Header="Finalizada">
-                                <DataGridCheckBoxColumn.ElementStyle>
-                                    <Style>
-                                        <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
-                                    </Style>
-                                </DataGridCheckBoxColumn.ElementStyle>
-                            </DataGridCheckBoxColumn>
+                            <DataGridCheckBoxColumn Width="65"  Binding="{Binding Finalizada, UpdateSourceTrigger=PropertyChanged}" Header="Feita"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <TextBlock>
@@ -106,8 +105,9 @@
                     <Separator/>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">                                
-                <Button Command="{Binding SalvarCommand}" Content="Salvar"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">
+                <Button Command="{Binding SalvarCommand}" Content="Salvar" Margin="10 0"/>
+                <Button Command="{Binding AlterarCommand}" Content="Alterar "/>
                 <Button Command="{Binding CancelarCommand}" Content="Cancelar" Margin="10 0"/>
             </StackPanel>
         </StackPanel>

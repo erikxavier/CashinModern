@@ -48,7 +48,11 @@ namespace CashinMUI.View
 
         public void OnNavigatingFrom(FirstFloor.ModernUI.Windows.Navigation.NavigatingCancelEventArgs e)
         {
-            
+            var viewModel = DataContext as ProjetoViewModel;
+            if (viewModel != null)
+            {
+                viewModel.OnNavigatingFrom(e);
+            }
         }
     }
 }
