@@ -204,8 +204,8 @@
     <None Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Image\Logo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Image\LogoCashin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="MVVMLight.Nuget.Readme.txt" />
     <Content Include="Resources\Entypo-license.txt" />
