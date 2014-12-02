@@ -9,12 +9,10 @@
     
     <Grid Style="{StaticResource ContentRoot}">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                
-            <Image Width="400" Height="150" Name="Logo" Source="../Image/Logo.png"/>
-            
-            <TextBlock Text="Módulo de Gestão de Serviços Autônomos" HorizontalAlignment="Center" FontSize="16" Margin="0 0 0 10"/>
-            <TextBlock Text="Login" Style="{StaticResource Title}" HorizontalAlignment="Center" Margin="0 0 0 10"/>
-            <Grid>
+
+            <Image Width="453" Height="168" Name="Logo" Source="../Image/LogoCashin.png"/>
+            <TextBlock Text="Módulo de Gestão de Serviços Autônomos" HorizontalAlignment="Center" FontSize="20" Margin="0 10 0 10"/>
+            <Grid Width="357">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition />
@@ -23,8 +21,8 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Usuário:" Style="{StaticResource Title}" FontSize="30" Margin="0 5" VerticalAlignment="Center"/>
-                <TextBlock Grid.Row="1" Text="Senha:" Style="{StaticResource Title}" FontSize="30" Margin="0 5"/>
+                <TextBlock Text="Usuário:"  FontSize="26" Margin="0 5 10 0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBlock Grid.Row="1" Text="Senha:" FontSize="26" Margin="0 5 10 0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 <TextBox x:Name="tbUser" Grid.Column="1" FontSize="30" Text="{Binding Username}" Margin="0 5" VerticalAlignment="Center" GotFocus="TextBox_GotFocus">
                     <TextBox.InputBindings>
                         <KeyBinding Command="{Binding LoginCommand}" Key="Return" />
@@ -36,8 +34,8 @@
                     </PasswordBox.InputBindings>
                 </PasswordBox>
             </Grid>
-            <mui:BBCodeBlock BBCode="[url=/View/UsuarioView.xaml]Ainda não está cadastrado ? Clique aqui![/url]" HorizontalAlignment="Center" Margin="0 5 0 0"/>
-            <Button x:Name="btnEntrar" Command="{Binding LoginCommand}" Content="Entrar" FontSize="30" FontFamily="Segoe UI Semibold" Margin="0 10 0 0"/>
+            <mui:BBCodeBlock BBCode="[url=/View/UsuarioView.xaml]Ainda não está cadastrado? Clique aqui![/url]" HorizontalAlignment="Center" Margin="0 5 0 0"/>
+            <Button x:Name="btnEntrar" Command="{Binding LoginCommand}" Content="Entrar" FontSize="30" FontFamily="Segoe UI Semibold" Margin="0 10 0 0" Width="250"/>
             <TextBlock Text="{Binding Mensagem}" Foreground="Red" HorizontalAlignment="Center"/>
 
         </StackPanel>
