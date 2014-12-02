@@ -27,7 +27,6 @@ namespace CashinMUI.ViewModel
             DB = new CashinDB();
             DB.Log = Console.Out;
             AtualizaClientes();
-            
         }
 
         #region Variáveis

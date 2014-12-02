@@ -23,7 +23,6 @@ namespace CashinMUI.ViewModel
         {
             Usuario = (Usuario)App.Current.Properties["UsuarioLogado"];  
             DB = new CashinDB();
-            Criterio = "Cliente";
             AtualizaOrcamentos();
         }
 

@@ -42,7 +42,7 @@
 
                 <Separator Margin="10 10"/>
 
-                <DataGrid SelectedItem="{Binding ClienteSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Clientes}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Margin="10,0" ToolTip="Clique com o botão direito do mouse para obter mais opções." Width="380">
+                <DataGrid SelectedItem="{Binding ClienteSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Clientes}" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ToolTip="Clique com o botão direito do mouse para obter mais opções." Width="380">
 
                     <DataGrid.ContextMenu>
                         <ContextMenu>
@@ -53,9 +53,8 @@
                             <MenuItem Command="{Binding ExcluirCommand}" Header="Excluir"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
-
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Código" Binding="{Binding ID}" Width="100">
+                        <DataGridTextColumn Header="Código" Binding="{Binding ID, StringFormat={}{0:000}}" Width="80">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Padding" Value="5"/>
