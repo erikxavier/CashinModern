@@ -115,7 +115,7 @@ namespace CashinMUI.ViewModel
 
         public void LogOut()
         {
-            if (ModernDialog.ShowMessage("Deseja mesmo deslogar ?", "Atenção!", MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+            if (ModernDialog.ShowMessage("Deseja mesmo sair?", "Atenção!", MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
             {
                 App.Current.Properties["UsuarioLogado"] = null;
                 UsuarioLogado = null;
@@ -126,7 +126,7 @@ namespace CashinMUI.ViewModel
         public void MontaLinksLogado()
         {            
             LinkGroup entidades = new LinkGroup();
-            entidades.DisplayName = "Entidades";
+            entidades.DisplayName = "Cadastros";
             entidades.Links.Add(new Link()
             {
                 DisplayName = "Clientes",
@@ -137,29 +137,20 @@ namespace CashinMUI.ViewModel
                 DisplayName = "Usuarios",
                 Source = new System.Uri("/View/UsuarioView.xaml", UriKind.Relative)
             });
+
             LinkGroup orcamentos = new LinkGroup();
             orcamentos.DisplayName = "Orçamentos";
             orcamentos.Links.Add(new Link()
             {
-                DisplayName = "Consultar",
-                Source = new System.Uri("/View/Home.xaml", UriKind.Relative)
-            });
-            orcamentos.Links.Add(new Link()
-            {
-                DisplayName = "Cadastrar",
+                DisplayName = "Gerenciar",
                 Source = new System.Uri("/View/OrcamentoView.xaml", UriKind.Relative)
             });
             LinkGroup projetos = new LinkGroup();
             projetos.DisplayName = "projetos";
             projetos.Links.Add(new Link()
             {
-                DisplayName = "Cadastrar",
+                DisplayName = "Gerenciar",
                 Source = new System.Uri("/View/ProjetoView.xaml", UriKind.Relative)
-            });
-            projetos.Links.Add(new Link()
-            {
-                DisplayName = "Acompanhamento",
-                Source = new System.Uri("/View/Home.xaml", UriKind.Relative)
             });
             MenuLinkGroups.Clear();
             MenuLinkGroups.Add(entidades);
