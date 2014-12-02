@@ -115,11 +115,11 @@ namespace CashinMUI.ViewModel
 
         public void LogOut()
         {
-            if (ModernDialog.ShowMessage("Deseja mesmo deslogar ?", "Atenção!", MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+            if (ModernDialog.ShowMessage("Deseja mesmo sair?", "Atenção!", MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
             {
-                App.Current.Properties["UsuarioLogado"] = null;
-                UsuarioLogado = null;
                 ((MainWindow)App.Current.MainWindow).ContentSource = new Uri("/View/Login.xaml", UriKind.Relative);
+                App.Current.Properties["UsuarioLogado"] = null;
+                UsuarioLogado = null;                
             }
         }
 
@@ -129,12 +129,12 @@ namespace CashinMUI.ViewModel
             inicio.DisplayName = "Início";
             inicio.Links.Add(new Link()
             {
-                DisplayName = "Dashboard",
+                DisplayName = "Resumo",
                 Source = new Uri("/View/Home.xaml", UriKind.Relative)
             });
 
             LinkGroup entidades = new LinkGroup();
-            entidades.DisplayName = "Entidades";
+            entidades.DisplayName = "Cadastrar";
             entidades.Links.Add(new Link()
             {
                 DisplayName = "Clientes",
@@ -149,14 +149,14 @@ namespace CashinMUI.ViewModel
             orcamentos.DisplayName = "Orçamentos";            
             orcamentos.Links.Add(new Link()
             {
-                DisplayName = "Cadastrar",
+                DisplayName = "Gerenciar",
                 Source = new System.Uri("/View/OrcamentoView.xaml", UriKind.Relative)
             });
             LinkGroup projetos = new LinkGroup();
-            projetos.DisplayName = "projetos";
+            projetos.DisplayName = "Projetos";
             projetos.Links.Add(new Link()
             {
-                DisplayName = "Cadastrar",
+                DisplayName = "Gerenciar",
                 Source = new System.Uri("/View/ProjetoView.xaml", UriKind.Relative)
             });
             
@@ -186,6 +186,8 @@ namespace CashinMUI.ViewModel
             MenuLinkGroups.Clear();
             MenuLinkGroups.Add(entidades);
             RaisePropertyChanged("MenuLinkGroups");
+
+            ((MainWindow)App.Current.MainWindow).ContentSource = new Uri("/View/Login.xaml", UriKind.Relative);
         }
         
         #endregion

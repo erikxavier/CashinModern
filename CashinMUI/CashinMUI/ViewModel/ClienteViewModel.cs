@@ -212,11 +212,16 @@ namespace CashinMUI.ViewModel
                     _clienteSelecionado = value;
                     RaisePropertyChanged("ClienteSelecionado");
                     if (_clienteSelecionado != null && !IsEditing)
+                    {
                         Cliente = ClienteSelecionado;
+                        RaisePropertyChanged("CEP");
+                        RaisePropertyChanged("DocTipo");
+                    }
                 }
             }
         }
         
+
         public string CEP
         {
             get {
@@ -368,6 +373,7 @@ namespace CashinMUI.ViewModel
             try
             {                
                 DB.SubmitChanges();
+                ModernDialog.ShowMessage("Cliente cadastrado com sucesso!", "Cliente", MessageBoxButton.OK);
                 AtualizaClientes();
                 Cancelar();
             }
@@ -400,7 +406,7 @@ namespace CashinMUI.ViewModel
 
         private bool CanNovo()
         {
-            return Cliente == null;
+            return !IsEditing;
         }
 
         private void Novo()

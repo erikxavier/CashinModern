@@ -72,6 +72,7 @@ namespace CashinMUI.View
 
         public void OnNavigatedTo(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
         {
+            pbSenha.Password = "";
             if (Application.Current.Properties["UsuarioLogado"] == null)
             {
                 

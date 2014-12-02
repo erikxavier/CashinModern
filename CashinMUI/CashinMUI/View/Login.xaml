@@ -28,7 +28,7 @@
                         <KeyBinding Command="{Binding LoginCommand}" Key="Return" />
                     </TextBox.InputBindings>
                 </TextBox>
-                <PasswordBox PasswordChanged="PasswordBox_PasswordChanged" Grid.Column="1" FontSize="30"  Grid.Row="1" Margin="0 5" VerticalAlignment="Center" GotFocus="PasswordBox_GotFocus" KeyDown="PasswordBox_KeyDown">
+                <PasswordBox Name="pbSenha" PasswordChanged="PasswordBox_PasswordChanged" Grid.Column="1" FontSize="30"  Grid.Row="1" Margin="0 5" VerticalAlignment="Center" GotFocus="PasswordBox_GotFocus" KeyDown="PasswordBox_KeyDown">
                     <PasswordBox.InputBindings>
                         <KeyBinding Command="{Binding LoginCommand}" Key="Return" />
                     </PasswordBox.InputBindings>

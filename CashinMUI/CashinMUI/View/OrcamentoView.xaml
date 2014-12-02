@@ -82,7 +82,7 @@
                     </StackPanel>
                     <Separator Margin="0 5"/>
                         <TextBlock Text="Descrição dos Itens" HorizontalAlignment="Center" Style="{StaticResource Title}" Margin="0 5" />
-                        <DataGrid SelectedIndex="{Binding IndexSelecionado}" SelectedItem="{Binding ItemSelecionado}" MaxHeight="350" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding ItensOrcamento, Mode=TwoWay}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False">
+                        <DataGrid SelectedIndex="{Binding IndexSelecionado}" SelectedItem="{Binding ItemSelecionado}" MaxHeight="150" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding ItensOrcamento, Mode=TwoWay}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False">
                             <DataGrid.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Command="{Binding AdicionaItemCommand}" Header="Adicionar Item"/>

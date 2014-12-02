@@ -126,7 +126,7 @@ namespace CashinMUI.ViewModel
                     _orcamento = value;
                     RaisePropertyChanged("Orcamento");
                     if (_orcamento != null)
-                        OrcamentoString = "Código: " + Orcamento.ID + " | Cliente: " + Orcamento.Cliente.Nome;
+                        OrcamentoString = "Código: " + Orcamento.ID.ToString("000") + " | Cliente: " + Orcamento.Cliente.Nome;
                     else
                         OrcamentoString = "Nenhum orçamento vinculado ao projeto";
                 }
@@ -298,10 +298,43 @@ namespace CashinMUI.ViewModel
             }
         }
 
+        private ICommand _excluirCommand;
+        public ICommand ExcluirCommand
+        {
+            get
+            {
+                return _excluirCommand ?? (_excluirCommand = new RelayCommand(Excluir, CanExcluir));
+            }
+        }
+
 
         #endregion
 
         #region Lógicas de Negócio
+
+        private bool CanExcluir()
+        {
+            return (!IsEditing && ProjetoSelecionado != null);
+        }
+
+        private void Excluir()
+        {
+            if (ModernDialog.ShowMessage("Deseja realmente excluir o projeto Nº " + ProjetoSelecionado.ID.ToString("000") + "?", "Projeto", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    DB.Projeto.DeleteOnSubmit(ProjetoSelecionado);
+                    Orcamento.Aprovado = false;
+                    DB.SubmitChanges();
+                    ModernDialog.ShowMessage("Projeto excluido com sucesso!", "Projeto", MessageBoxButton.OK);
+                    AtualizaProjetos();
+                }
+                catch (Exception ex)
+                {
+                    ModernDialog.ShowMessage("Erro ao excluir o projeto:\n"+ex.Message, "Projeto", MessageBoxButton.OK);
+                }
+            }
+        }
 
         public bool CanCancelar()
         {
@@ -335,6 +368,13 @@ namespace CashinMUI.ViewModel
             Projeto.Inicio = DateTime.Now;
             Projeto.Titulo = Orcamento.Titulo;
             Projeto.Descricao = Orcamento.Descricao;
+            foreach (Itemorcamento item in Orcamento.Itemorcamento)
+            {
+                Tarefas.Add(new Tarefa() {
+                    Atividade= item.Descricao                
+                });
+            }
+            IsNovo = true;
             IsEditing = true;
         }
 
@@ -390,9 +430,9 @@ namespace CashinMUI.ViewModel
                 AtualizaProjetos();
                 //ActionString = "Orçamento";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ModernDialog.ShowMessage("Não foi possível salvar as alterações no banco.", "Ops!", MessageBoxButton.OK);
+                ModernDialog.ShowMessage("Não foi possível salvar as alterações no banco:\n"+ex.Message, "Ops!", MessageBoxButton.OK);
             }
             //try
             //{

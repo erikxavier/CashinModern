@@ -92,7 +92,8 @@ namespace CashinMUI.ViewModel
                         IsEditing = false;
                         //RaisePropertyChanged("CEP");
                     }
-                    else IsEditing = true;                
+                    else IsEditing = true;
+                    RaisePropertyChanged("CEP");
                 }
             }
         }

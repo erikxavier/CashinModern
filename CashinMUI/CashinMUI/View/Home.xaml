@@ -12,9 +12,9 @@
                 <StackPanel>
                     <TextBlock Text="Projetos em andamento" Style="{StaticResource Title}" HorizontalAlignment="Center"/>
 
-                    <DataGrid Height="250" ToolTip="Clique com o botão direito do mouse para obter mais opções." SelectedItem="{Binding ProjetoSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Projetos}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid Height="150" MaxHeight="150" ToolTip="Clique com o botão direito do mouse para obter mais opções." SelectedItem="{Binding ProjetoSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Projetos}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="60" Header="Codigo" Binding="{Binding ID, StringFormat={}{0:000}}">
+                            <DataGridTextColumn Width="60" Header="Cod" Binding="{Binding ID, StringFormat={}{0:000}}">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
                                         <Setter Property="TextBlock.HorizontalAlignment" Value="Left"/>
@@ -31,10 +31,8 @@
                             </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
-                <StackPanel>
                     <TextBlock Text="Tarefas" Style="{StaticResource Title}" HorizontalAlignment="Center"/>
-                    <DataGrid Height="150" MaxHeight="150" ScrollViewer.CanContentScroll="True" 
+                    <DataGrid IsReadOnly="False" Height="150" MaxHeight="150" ScrollViewer.CanContentScroll="True" 
                               ScrollViewer.VerticalScrollBarVisibility="Auto" SelectedIndex="{Binding IndexSelecionado}" 
                               SelectedItem="{Binding TarefaSelecionada}" ItemsSource="{Binding Tarefas, Mode=TwoWay}" 
                               AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" 
@@ -51,31 +49,33 @@
                             <DataGridCheckBoxColumn Width="65"  Binding="{Binding Finalizada, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Feita"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <TextBlock Text="Relatório de conclusão da atividade:" HorizontalAlignment="Center"/>
-                    <TextBox Height="66" TextWrapping="Wrap"/>
-                    <Button Content="Salvar alterações" Command="{Binding SalvarTarefasCommand}"/>
                 </StackPanel>
-  
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
+                <GridSplitter Width="2" Margin="10 0"/>
                 <StackPanel>
                     <TextBlock Text="Orçamentos não aprovados" HorizontalAlignment="Center" Style="{StaticResource Title}"/>
-                    <DataGrid ToolTip="Clique com o botão direito do mouse para obter mais opções." SelectedItem="{Binding OrcamentoSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Orcamentos}" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Width="380">
+                    <DataGrid Height="300" MaxHeight="300" ToolTip="Clique com o botão direito do mouse para obter mais opções." SelectedItem="{Binding OrcamentoSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Orcamentos}" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Command="{Binding EditarOrcamentoCommand}" Header="Editar Orçamento"/>
+                                <MenuItem Command="{Binding AprovarOrcamentoCommand}" Header="Aprovar Orçamento"/>
                                 <Separator/>
-                                <MenuItem Command="{Binding ExibirRelatorioCommand}" Header="Exibir Relatório"/>                                
+                                <MenuItem Command="{Binding ExibirRelatorioCommand}" Header="Gerar Orçamento"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="80" Header="Codigo" Binding="{Binding ID, StringFormat={}{0:000}}">
+                            <DataGridTextColumn Width="60" Header="Cod" Binding="{Binding ID, StringFormat={}{0:000}}">
                             </DataGridTextColumn>
 
                             <DataGridTextColumn Header="Titulo" Binding="{Binding Titulo}">
                             </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                </StackPanel>
+  
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    
                 </StackPanel>
             </StackPanel>
         </StackPanel>

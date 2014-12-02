@@ -25,16 +25,13 @@
                         <TextBox Text="{Binding Busca, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10 0" Width="250" Padding="3" TabIndex="14" IsEnabled="{Binding CriterioExiste}"/>
                     </StackPanel>
                     <Separator Margin="10 10"/>
-                    <DataGrid ToolTip="Clique com o botão direito do mouse para obter mais opções." SelectedItem="{Binding ProjetoSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Projetos}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
-                        <!--
+                    <DataGrid ToolTip="Clique com o botão direito do mouse para obter mais opções." SelectedItem="{Binding ProjetoSelecionado}" AutoGenerateColumns="False" ItemsSource="{Binding Projetos}" HorizontalAlignment="Center" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">                        
                         <DataGrid.ContextMenu>
                            <ContextMenu>
-                                <MenuItem Command="{Binding AprovarOrcamentoCommand}" Header="Aprovar Orçamento"/>
-                                <MenuItem Command="{Binding ExibirRelatorioCommand}" Header="Exibir Relatório"/>
-                                <MenuItem Command="{Binding ExcluirOrcamentoCommand}" Header="Excluir"/>
+                                <MenuItem Command="{Binding AlterarCommand}" Header="Alterar"/>
+                                <MenuItem Command="{Binding ExcluirCommand}" Header="Excluir"/>                                
                             </ContextMenu>
-                        </DataGrid.ContextMenu>
-                        -->
+                        </DataGrid.ContextMenu>                        
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="60" Header="Codigo" Binding="{Binding ID, StringFormat={}{0:000}}">
                                 <DataGridTextColumn.ElementStyle>
@@ -92,7 +89,7 @@
                     <Separator Margin="0 5"/>
                     <TextBlock Text="Tarefas" Style="{StaticResource Title}" HorizontalAlignment="Center" Margin="0 5"/>
                     
-                    <DataGrid IsReadOnly="{Binding ReadOnly}" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectedIndex="{Binding IndexSelecionado}" SelectedItem="{Binding TarefaSelecionada}" MaxHeight="150" ItemsSource="{Binding Tarefas, Mode=TwoWay}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False">
+                    <DataGrid IsReadOnly="{Binding ReadOnly}" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectedIndex="{Binding IndexSelecionado}" SelectedItem="{Binding TarefaSelecionada}" MaxHeight="120" ItemsSource="{Binding Tarefas, Mode=TwoWay}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False">
                         <DataGrid.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Command="{Binding AdicionaTarefaCommand}" Header="Adicionar Item"/>
@@ -121,7 +118,8 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">
                         <Button Command="{Binding SalvarCommand}" Content="Salvar" Margin="10 0" Padding="10,8,10,8"/>
                         <Button Command="{Binding AlterarCommand}" Content="Alterar "/>
-                        <Button Command="{Binding CancelarCommand}" Content="Cancelar" Margin="10 0"/>
+                        <Button Command="{Binding ExcluirCommand}" Content="Excluir" Margin="10 0"/>
+                        <Button Command="{Binding CancelarCommand}" Content="Cancelar" Margin="0"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

@@ -395,6 +395,10 @@ namespace CashinMUI.ViewModel
         }
 
         private void AprovarOrcamento() {
+            if (OrcamentoSelecionado.Aprovado)
+            {
+                ModernDialog.ShowMessage("Este orçamento já foi aprovado, e já existe um projeto vinculado", "Orçamento", MessageBoxButton.OK);
+            } else
             ((MainWindow)App.Current.MainWindow).ContentSource = new Uri("/View/ProjetoView.xaml#" + OrcamentoSelecionado.ID, UriKind.Relative);
         }
 
