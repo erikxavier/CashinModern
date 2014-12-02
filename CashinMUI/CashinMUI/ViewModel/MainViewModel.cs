@@ -124,7 +124,15 @@ namespace CashinMUI.ViewModel
         }
 
         public void MontaLinksLogado()
-        {            
+        {
+            LinkGroup inicio = new LinkGroup();
+            inicio.DisplayName = "Início";
+            inicio.Links.Add(new Link()
+            {
+                DisplayName = "Dashboard",
+                Source = new Uri("/View/Home.xaml", UriKind.Relative)
+            });
+
             LinkGroup entidades = new LinkGroup();
             entidades.DisplayName = "Entidades";
             entidades.Links.Add(new Link()
@@ -138,12 +146,7 @@ namespace CashinMUI.ViewModel
                 Source = new System.Uri("/View/UsuarioView.xaml", UriKind.Relative)
             });
             LinkGroup orcamentos = new LinkGroup();
-            orcamentos.DisplayName = "Orçamentos";
-            orcamentos.Links.Add(new Link()
-            {
-                DisplayName = "Consultar",
-                Source = new System.Uri("/View/Home.xaml", UriKind.Relative)
-            });
+            orcamentos.DisplayName = "Orçamentos";            
             orcamentos.Links.Add(new Link()
             {
                 DisplayName = "Cadastrar",
@@ -156,12 +159,9 @@ namespace CashinMUI.ViewModel
                 DisplayName = "Cadastrar",
                 Source = new System.Uri("/View/ProjetoView.xaml", UriKind.Relative)
             });
-            projetos.Links.Add(new Link()
-            {
-                DisplayName = "Acompanhamento",
-                Source = new System.Uri("/View/Home.xaml", UriKind.Relative)
-            });
+            
             MenuLinkGroups.Clear();
+            MenuLinkGroups.Add(inicio);
             MenuLinkGroups.Add(entidades);
             MenuLinkGroups.Add(orcamentos);
             MenuLinkGroups.Add(projetos);

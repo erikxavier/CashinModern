@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CashinMUI.Pages
+namespace CashinMUI.View
 {
     /// <summary>
-    /// Interaction logic for Home.xaml
+    /// Interaction logic for InicioView.xaml
     /// </summary>
-    public partial class Home : UserControl
+    public partial class InicioView : UserControl
     {
-        public Home()
+        public InicioView()
         {
             InitializeComponent();
         }
-
     }
 }

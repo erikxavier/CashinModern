@@ -68,5 +68,15 @@ namespace CashinMUI.ViewModel
                 return _projetoViewModel;
             }
         }
+
+        private static HomeViewModel _homeViewModel;
+        public HomeViewModel HomeViewModel
+        {
+            get
+            {
+                _homeViewModel = new HomeViewModel();
+                return _homeViewModel;
+            }
+        }
     }
 }
