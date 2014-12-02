@@ -126,9 +126,9 @@ namespace CashinMUI.ViewModel
                     _orcamento = value;
                     RaisePropertyChanged("Orcamento");
                     if (_orcamento != null)
-                        OrcamentoString = "Nº:" + Orcamento.ID + " Cliente: " + Orcamento.Cliente.Nome;
+                        OrcamentoString = "Código: " + Orcamento.ID + " | Cliente: " + Orcamento.Cliente.Nome;
                     else
-                        OrcamentoString = "Nenhum orçamento selecionado para projeto";
+                        OrcamentoString = "Nenhum orçamento vinculado ao projeto";
                 }
             }
         }
@@ -385,7 +385,7 @@ namespace CashinMUI.ViewModel
             try
             {
                 DB.SubmitChanges();
-                ModernDialog.ShowMessage("O Projeto Nº " + Projeto.ID.ToString("0:000") + " foi " + acao + " com sucesso!", "Projeto", MessageBoxButton.OK);
+                ModernDialog.ShowMessage("O Projeto Nº " + Projeto.ID.ToString("000") + " foi " + acao + " com sucesso!", "Projeto", MessageBoxButton.OK);
                 IsEditing = false;
                 AtualizaProjetos();
                 //ActionString = "Orçamento";
