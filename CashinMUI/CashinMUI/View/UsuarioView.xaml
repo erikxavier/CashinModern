@@ -5,13 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             DataContext="{Binding Source={StaticResource Locator}, Path=UsuarioViewModel}" Loaded="UserControl_Loaded" Initialized="UserControl_Initialized">
+             DataContext="{Binding Source={StaticResource Locator}, Path=UsuarioViewModel}" Loaded="UserControl_Loaded" Initialized="UserControl_Initialized" Width="900">
     <Grid Style="{StaticResource ContentRoot}">
         <StackPanel>
             <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsEditing}">
                 <StackPanel>
-                    <Label Content="Usuario" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0 20"/>
-                    <Grid IsEnabled="{Binding IsEditing}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20 10">
+                    <TextBlock Style="{StaticResource Title}" Text="Usuário" FontSize="30" HorizontalAlignment="Center" Margin="0 10"/>
+                    <Grid IsEnabled="{Binding IsEditing}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20 5">
                         <Grid.ColumnDefinitions >
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -26,28 +26,27 @@
                             <RowDefinition Height="38*" />
                             <RowDefinition Height="38*" />
                         </Grid.RowDefinitions>
-                        <Label FontWeight="Bold" Grid.Row="0" Content="Nome:" VerticalAlignment="Center"  Margin="12 8"/>
-                        <Label FontWeight="Bold" Grid.Row="1" Content="E-Mail:" VerticalAlignment="Center" Margin="12 8"/>
-                        <Label Grid.Row="2" Content="Telefone:" VerticalAlignment="Center" Margin="12 8"  />
+                        <Label FontWeight="Bold" FontSize="15" Grid.Row="0" Content="Nome:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,13,11,13"/>
+                        <Label FontWeight="Bold" FontSize="15" Grid.Row="1" Content="E-Mail:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="12 8"/>
+                        <Label Grid.Row="2" FontSize="15" Content="Telefone:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="12 8"  />
                         <Separator Grid.Row="3" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0 5"/>
-                        <Label Grid.Row="5" Content="Estado:" VerticalAlignment="Center" Margin="12 8" />
-                        <Label Grid.Row="6" Content="Cidade:" VerticalAlignment="Center"  Margin="12 8"/>
-                        <Label Grid.Row="4" Content="CEP:" VerticalAlignment="Center"  Margin="12 8"/>
-                        <Label Grid.Row="7" Content="Endereço:" VerticalAlignment="Center"  Margin="12 8"/>
-
-                        <TextBox TabIndex="0" Text="{Binding Usuario.Nome, Mode=TwoWay}" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <TextBox Text="{Binding Usuario.Email, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="1"/>
-                        <TextBox Text="{Binding Usuario.Telefone, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="2"/>
-                        <TextBox Text="{Binding CEP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="4" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="3"/>
-                        <TextBox Text="{Binding Usuario.Estado, Mode=TwoWay}" Grid.Column="1" Grid.Row="5" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="4"/>
-                        <TextBox Text="{Binding Usuario.Cidade, Mode=TwoWay}" Grid.Column="1" Grid.Row="6" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="5"/>
-                        <TextBox Text="{Binding Usuario.Endereco, Mode=TwoWay}" Grid.Column="1" Grid.Row="7" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="6"/>
+                        <Label Grid.Row="5" FontSize="15" Content="Estado:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="12 8" />
+                        <Label Grid.Row="6" FontSize="15" Content="Cidade:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="12 8"/>
+                        <Label Grid.Row="4" FontSize="15" Content="CEP:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="12 8"/>
+                        <Label Grid.Row="7" FontSize="15" Content="Endereço:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="12 8"/>
+                        <TextBox TabIndex="0" Text="{Binding Usuario.Nome, Mode=TwoWay}" Grid.Column="1" Width="200" VerticalAlignment="Center" Padding="3" Margin="12 8"/>
+                        <TextBox Text="{Binding Usuario.Email, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" Width="200" VerticalAlignment="Center" Padding="3" Margin="12 8" TabIndex="1"/>
+                        <TextBox Text="{Binding Usuario.Telefone, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" Width="200" VerticalAlignment="Center" Padding="3" Margin="12 8" TabIndex="2"/>
+                        <TextBox Text="{Binding CEP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="4" Width="200" VerticalAlignment="Center" Padding="3" Margin="12 8" TabIndex="3"/>
+                        <TextBox Text="{Binding Usuario.Estado, Mode=TwoWay}" Grid.Column="1" Grid.Row="5" Width="200" VerticalAlignment="Center" Padding="3" Margin="12 8" TabIndex="4"/>
+                        <TextBox Text="{Binding Usuario.Cidade, Mode=TwoWay}" Grid.Column="1" Grid.Row="6" Width="200" VerticalAlignment="Center" Padding="3" Margin="12 8" TabIndex="5"/>
+                        <TextBox Text="{Binding Usuario.Endereco, Mode=TwoWay}" Grid.Column="1" Grid.Row="7" Width="200" VerticalAlignment="Center" Padding="3" Margin="12 8" TabIndex="6"/>
                     </Grid>
                 </StackPanel>
-                <GridSplitter Name="gridSplitter" Width="4" Margin="15 0"/>
+                <GridSplitter Name="gridSplitter" Width="2" Margin="15 0"/>
                 <StackPanel IsEnabled="{Binding IsEditing}">
-                    <Label Content="Dados da Empresa / Prestador" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0 20"/>
-                    <Grid IsEnabled="{Binding IsEditing}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20 10">
+                    <TextBlock Style="{StaticResource Title}" Text="Profissional" FontSize="30" HorizontalAlignment="Center" Margin="0 10"/>
+                    <Grid IsEnabled="{Binding IsEditing}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20 5">
                         <Grid.ColumnDefinitions >
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -58,18 +57,17 @@
                             <RowDefinition Height="38*" />
                             <RowDefinition Height="38*" />
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Content="Nome Fantasia:" VerticalAlignment="Center"  Margin="12 8"/>
-
-                        <Label Grid.Row="1" Content="Tipo de Doc.:" VerticalAlignment="Center" Margin="12 8" />
-                        <Label Grid.Row="2" Content="Documento:" VerticalAlignment="Center"  Margin="12 8"/>
-
-                        <TextBox TabIndex="7" Text="{Binding Usuario.Nomefantasia, Mode=TwoWay}" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="12 8"/>
-                        <ComboBox Name="cbTipoDeDocumento" Text="{Binding Usuario.Tipodocumento, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="8"/>
-                        <TextBox Text="{Binding Usuario.Documento, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" Width="200" VerticalAlignment="Center" Margin="12 8" TabIndex="9"/>
-                        <Separator Grid.Row="4" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0 5"/>
+                        <Label Grid.Row="0" FontSize="15" Content="Nome Fantasia:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="12 8"/>
+                        <Label Grid.Row="1" FontSize="15" Content="Tipo de Doc.:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="12 8" />
+                        <Label Grid.Row="2" FontSize="15" Content="Documento:" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,12,13"/>
+                        <Separator Grid.Row="3" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0 5"/>
+                        <TextBox TabIndex="7" Text="{Binding Usuario.Nomefantasia, Mode=TwoWay}" Grid.Column="1" VerticalAlignment="Center" Padding="3" Margin="12 8" Width="300"/>
+                        <ComboBox Name="cbTipoDeDocumento" Text="{Binding Usuario.Tipodocumento, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" Padding="7" VerticalAlignment="Center" Margin="12 8" TabIndex="8"/>
+                        <TextBox Text="{Binding Usuario.Documento, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Padding="3" Margin="12 8" TabIndex="9"/>
+                        
                     </Grid>
-                    <Label Content="Acesso ao Sistema" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0 0"/>
-                    <Grid IsEnabled="{Binding IsEditing}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20 10">
+                    <TextBlock Style="{StaticResource Title}" Text="Acesso ao Sistema" FontSize="30" HorizontalAlignment="Center" Margin="0 10"/>
+                    <Grid IsEnabled="{Binding IsEditing}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20 5">
                         <Grid.ColumnDefinitions >
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -80,17 +78,17 @@
                             <RowDefinition Height="38*" />
                             <RowDefinition Height="38*" />
                         </Grid.RowDefinitions>
-                        <Label IsEnabled="{Binding IsNovo}" FontWeight="Bold" Grid.Row="0" Content="Nome de Usuário:" VerticalAlignment="Center"  Margin="12 8"/>
-                        <Label FontWeight="Bold" Grid.Row="1" Content="Senha:" VerticalAlignment="Center" Margin="12 8"/>
-                        <Label FontWeight="Bold" Grid.Row="2" Content="Confirmação de Senha:" VerticalAlignment="Center" Margin="12 8"  />
-                        <TextBox IsEnabled="{Binding IsNovo}" TabIndex="10" Text="{Binding Usuario.Nomeusuario}" Grid.Column="1" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 8"/>
-                        <PasswordBox Name="pb1" Grid.Column="1" Grid.Row="1"  Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 8" TabIndex="11" PasswordChanged="PasswordBox_PasswordChanged" IsEnabledChanged="PasswordBox_IsEnabledChanged"/>
-                        <PasswordBox Name="pb2" Grid.Column="1" Grid.Row="2" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 8" TabIndex="12" PasswordChanged="PasswordBox_PasswordChanged_1" IsEnabledChanged="PasswordBox_IsEnabledChanged"/>
+                        <Label IsEnabled="{Binding IsNovo}" FontSize="15" FontWeight="Bold" Grid.Row="0" Content="Nome de Usuário:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="12 8"/>
+                        <Label FontWeight="Bold" Grid.Row="1" FontSize="15" Content="Senha:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="12 8"/>
+                        <Label FontWeight="Bold" Grid.Row="2" FontSize="15" Content="Confirmar de Senha:" VerticalAlignment="Center" Margin="12 8"  />
+                        <TextBox IsEnabled="{Binding IsNovo}" TabIndex="10" Text="{Binding Usuario.Nomeusuario}" Grid.Column="1" Width="260" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="3" Margin="12,8,-88,8" />
+                        <PasswordBox Name="pb1" Grid.Column="1" Grid.Row="1"  Width="260" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,8,-88,8" TabIndex="11" Padding="3" PasswordChanged="PasswordBox_PasswordChanged" IsEnabledChanged="PasswordBox_IsEnabledChanged"/>
+                        <PasswordBox Name="pb2" Grid.Column="1" Grid.Row="2" Width="260" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,8,-88,8" TabIndex="12" Padding="3" PasswordChanged="PasswordBox_PasswordChanged_1" IsEnabledChanged="PasswordBox_IsEnabledChanged"/>
                     </Grid>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 0">
-                <Button Name="btnNovo" Command="{Binding NovoCommand}" Content="Novo" Margin="5 8" TabIndex="12"/>
+                <Button Name="btnNovo" Command="{Binding NovoCommand}" Content="Novo" Margin="5 8" TabIndex="12" Padding="10,8,10,8"/>
                 <Button Command="{Binding SalvarCommand}" Content="Salvar" Margin="5 8" TabIndex="13"/>
                 <Button Command="{Binding AlterarCommand}" Content="Editar Usuario Logado" Margin="5 8" TabIndex="14"/>
                 <Button Command="{Binding CancelarCommand}" Content="Cancelar" Margin="5 8" TabIndex="15" />
