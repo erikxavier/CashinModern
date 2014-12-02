@@ -24,8 +24,7 @@ namespace CashinMUI.ViewModel
         public ClienteViewModel()
         {
             Usuario = (Usuario)App.Current.Properties["UsuarioLogado"];            
-            DB = new CashinDB();
-            DB.Log = Console.Out;
+            DB = new CashinDB();            
             AtualizaClientes();
         }
 
@@ -53,6 +52,7 @@ namespace CashinMUI.ViewModel
                         else
                         {
                             DocLenght = "18";
+                            DocMask = "{0:00\\.000\\.000\\/0000\\-00}";
                         }
                         Cliente.Documento = null;
                     }
@@ -194,11 +194,9 @@ namespace CashinMUI.ViewModel
                     _cliente = value;
                     RaisePropertyChanged("Cliente");
                     if (_cliente == null)
-                    {
-                        IsEditing = false;
+                    {                        
                         RaisePropertyChanged("CEP");
-                    }
-                    else IsEditing = true;
+                    }                    
                 }
             }
         }
@@ -213,6 +211,8 @@ namespace CashinMUI.ViewModel
                 {
                     _clienteSelecionado = value;
                     RaisePropertyChanged("ClienteSelecionado");
+                    if (_clienteSelecionado != null && !IsEditing)
+                        Cliente = ClienteSelecionado;
                 }
             }
         }
@@ -316,12 +316,13 @@ namespace CashinMUI.ViewModel
         private void Alterar()
         {
             Cliente = ClienteSelecionado;
+            IsEditing = true;
             ActionString = "Alterar Cliente";
         }
 
         private bool CanExcluir()
         {
-            return ClienteSelecionado != null;
+            return ClienteSelecionado != null && !IsEditing;
         }
 
         private void Excluir()
@@ -355,7 +356,7 @@ namespace CashinMUI.ViewModel
 
         private bool CanSalvar()
         {
-            if (Cliente == null || string.IsNullOrEmpty(Cliente.Nome)) 
+            if (Cliente == null || string.IsNullOrEmpty(Cliente.Nome) || !IsEditing) 
                 return false;
             else return true;
         }
@@ -383,8 +384,17 @@ namespace CashinMUI.ViewModel
 
         private void Cancelar()
         {
-            DocTipo = null;
-            Cliente = null;
+            if (ClienteSelecionado != null)
+            {
+                Cliente = ClienteSelecionado;
+                DocTipo = Cliente.Tipodocumento;
+            }
+            else
+            {
+                Cliente = null;
+                DocTipo = null;
+            }
+            IsEditing = false;
             ActionString = "Cliente";
         }
 
@@ -398,6 +408,7 @@ namespace CashinMUI.ViewModel
             Cliente = new Cliente();
             Cliente.Usuario = Usuario;
             DocTipo = TipoDeDocumento.CPF.ToString();
+            IsEditing = true;
             ActionString = "Novo Cliente";
         }
 

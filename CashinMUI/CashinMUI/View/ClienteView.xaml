@@ -126,6 +126,8 @@
                 <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Command="{Binding NovoCommand}" Content="Novo" Margin="5 8" TabIndex="11" x:Name="btnNovo" Padding="10,8,10,8"/>
                     <Button Command="{Binding SalvarCommand}" Content="Salvar" Margin="5 8" TabIndex="9"/>
+                    <Button Command="{Binding AlterarCommand}" Content="Alterar" Margin="5 8" TabIndex="9"/>
+                    <Button Command="{Binding ExcluirCommand}" Content="Excluir" Margin="5 8" TabIndex="9"/>
                     <Button Command="{Binding CancelarCommand}" Content="Cancelar" Margin="5 8" TabIndex="10"/>
                 </StackPanel>
 
