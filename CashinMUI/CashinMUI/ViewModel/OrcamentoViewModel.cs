@@ -446,6 +446,7 @@ namespace CashinMUI.ViewModel
             ItensOrcamento = null;
             IsEditing = false;
             Cliente = null;
+            ActionString = "Orçamento";
         }
 
         private bool CanSalvar()
@@ -496,7 +497,7 @@ namespace CashinMUI.ViewModel
             try
             {                
                 DB.SubmitChanges();
-                ModernDialog.ShowMessage("O Orçamento Nº "+Orcamento.ID.ToString("0:000")+" foi "+acao+" com sucesso!", "Orçamento", MessageBoxButton.OK);
+                ModernDialog.ShowMessage("O Orçamento Nº "+Orcamento.ID.ToString("000")+" foi "+acao+" com sucesso!", "Orçamento", MessageBoxButton.OK);
                 IsEditing = false;                
                 AtualizaOrcamentos();
                 ActionString = "Orçamento";
@@ -533,6 +534,7 @@ namespace CashinMUI.ViewModel
             IsEditing = true;
             IsNovo = true;
             ActionString = "Novo Orçamento";
+            Cliente = null;
         }
 
         private bool CanAdicionaItem()
@@ -597,7 +599,7 @@ namespace CashinMUI.ViewModel
         public void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             if (IsEditing)
-                if (ModernDialog.ShowMessage("Deseja cancelar a edição do item atual ?", "Alerta!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (ModernDialog.ShowMessage("Deseja cancelar a edição do item atual?", "Alerta!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     Cancelar();
                 }
